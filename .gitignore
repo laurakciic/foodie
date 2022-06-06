@@ -1,0 +1,14 @@
+*.iml
+Foodie_RMA/.gradle
+Foodie_RMA/local.properties
+Foodie_RMA/.idea/caches
+Foodie_RMA/.idea/libraries
+Foodie_RMA/.idea/modules.xml
+Foodie_RMA/.idea/workspace.xml
+Foodie_RMA/.idea/navEditor.xml
+Foodie_RMA/.idea/assetWizardSettings.xml
+.DS_Store
+Foodie_RMA/build
+Foodie_RMA/captures
+.externalNativeBuild
+.cxx
