@@ -6,13 +6,13 @@ This document will be updated as the project progresses.
 
 ## Obstacles & Solutions 
 
-# App crashes - NavHostFragment couldn't be found (with clean debbug, no errors)
+### 1. App crashes - NavHostFragment couldn't be found (with clean debbug, no errors)
 
 Android Studio creates NavHostFragment in xml as a FragmentContainerView, not as <fragment> - that's why it couldn't be found via findNavController() method.
 
 According to the official [Android docs](https://developer.android.com/guide/navigation/navigation-getting-started) solution is:
 
-OLD:
+my code:
 ```kotlin
 navController = findNavController(R.id.navHostFragment)
 ```
@@ -37,6 +37,6 @@ to
 ...
 ```
 
-in [activity_main.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/activity_main.xml)
+in [activity_main.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/activity_main.xml), which I did.
 
 
