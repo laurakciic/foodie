@@ -3,13 +3,13 @@
 
 Foodie represents a Kotlin mobile application for browsing various recipes working with local and remote (Spoonacular API) data sources.
 
-This document will be updated as the project progresses. 
+This document will be updated as the project progresses.    
 
   
 ## Tools & Technologies
 
 - Kotlin, Android Studio, Git Bash
-- Data Binding, Navigation Component, RecyclerView, ShimmerRecyclerView library
+- Data Binding, Navigation Component, RecyclerView, ShimmerRecyclerView library    
 
 ## Obstacles & Solutions 
 
