@@ -1,14 +1,21 @@
-## Foodie
+
+# Foodie
 
 Foodie represents a Kotlin mobile application for browsing various recipes working with local and remote (Spoonacular API) data sources.
 
 This document will be updated as the project progresses. 
 
+  return 
+## Tools & Technologies
+
+    * Kotlin, Android Studio, Git Bash
+    * Data Binding, Navigation Component, RecyclerView, ShimmerRecyclerView library
+
 ## Obstacles & Solutions 
 
 ### 1. App crashes - NavHostFragment couldn't be found (with clean debbug, no errors)
 
-Android Studio creates NavHostFragment in xml as a FragmentContainerView, not as <fragment> - that's why it couldn't be found via findNavController() method.
+Android Studio creates NavHostFragment in xml as a FragmentContainerView, not just as fragment - that's why it couldn't be found via findNavController() method.
 
 According to the official [Android docs](https://developer.android.com/guide/navigation/navigation-getting-started) solution is:
 
