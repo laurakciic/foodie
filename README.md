@@ -1,15 +1,28 @@
 
 # Foodie
 
-Foodie represents a Kotlin mobile application for browsing various recipes working with local and remote data sources, suc as [Spoonacular API](https://spoonacular.com/food-api) and ROOM database. 
+Foodie represents a Kotlin mobile application for browsing various recipes working with local and remote data sources, such as [Spoonacular API](https://spoonacular.com/food-api) and ROOM database. 
 
 This document will be updated as the project progresses.
 
-  
+
 ## Tools & Technologies
 
 - Kotlin, Android Studio, Git Bash
-- Data Binding, Navigation Component, RecyclerView, ShimmerRecyclerView library
+- Data Binding, Navigation Component, RecyclerView, Kotlin Coroutines
+
+- libraries
+    - [ShimmerRecyclerView library](https://github.com/omtodkar/ShimmerRecyclerView)
+        - pretty shimmer effect on [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
+
+    - [Retrofit library](https://square.github.io/retrofit/)
+        - a typesafe HTTP client
+        - provides communication between client & server
+        - one simple interface, inside which we can create multiple functions
+        - each of the functions can represent a different HTTP request
+
+- JSON to Kotlin plugin for generating Model classes for API 
+    - the plugin lets us copy and paste JSON API response and it automatically generates necessary classes and fields (for API response) 
 
 ## Obstacles & Solutions 
 
