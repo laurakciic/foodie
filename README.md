@@ -10,6 +10,7 @@ This document will be updated as the project progresses.
 
 - Kotlin, Android Studio, Git Bash
 - Data Binding, Navigation Component, RecyclerView, Kotlin Coroutines
+- [Dependancy Injection](https://developer.android.com/training/dependency-injection)
 
 - libraries
     - [ShimmerRecyclerView library](https://github.com/omtodkar/ShimmerRecyclerView)
@@ -20,6 +21,15 @@ This document will be updated as the project progresses.
         - provides communication between client & server
         - one simple interface, inside which we can create multiple functions
         - each of the functions can represent a different HTTP request
+
+    - [Dagger library](https://developer.android.com/training/dependency-injection/dagger-basics)
+        - dependancy injection library for Java, Kotlin & Android
+        - provides fully static and compile-time dependencies addressing many of the dev & performance issues of reflection-based solutions (such as [Guice](https://en.wikipedia.org/wiki/Google_Guice))
+
+    - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+        - dependancy injection library for Android
+        - defines a standard way to do DI by providing containers for every Android class in project and managing their lifecycles automatically
+        - built on top of Dagger to benefit from compilte time correctness, runtime performance, scalability and Android Studio support 
 
 - JSON to Kotlin plugin for generating Model classes for API 
     - the plugin lets us copy and paste JSON API response and it automatically generates necessary classes and fields (for API response) 
