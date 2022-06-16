@@ -13,16 +13,16 @@ This document will be updated as the project progresses.
 - [Dependancy Injection](https://developer.android.com/training/dependency-injection)
 
 - libraries
-    - [ShimmerRecyclerView library](https://github.com/omtodkar/ShimmerRecyclerView)
-        - pretty shimmer effect on [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
+    - [ShimmerRecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
+        - library which provides pretty shimmer effect on my [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
 
-    - [Retrofit library](https://square.github.io/retrofit/)
-        - a typesafe HTTP client
+    - [Retrofit](https://square.github.io/retrofit/)
+        - a typesafe HTTP client library
         - provides communication between client & server
         - one simple interface, inside which we can create multiple functions
         - each of the functions can represent a different HTTP request
 
-    - [Dagger library](https://developer.android.com/training/dependency-injection/dagger-basics)
+    - [Dagger](https://developer.android.com/training/dependency-injection/dagger-basics)
         - dependancy injection library for Java, Kotlin & Android
         - provides fully static and compile-time dependencies addressing many of the dev & performance issues of reflection-based solutions (such as [Guice](https://en.wikipedia.org/wiki/Google_Guice))
 
