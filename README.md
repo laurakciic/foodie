@@ -8,7 +8,7 @@ This document will be updated as the project progresses.
 
 ## Tools & Technologies
 
-- Kotlin, Android Studio, Git Bash
+- Kotlin, Android Studio, Git
 - Data Binding, Navigation Component, RecyclerView, Kotlin Coroutines
 - [Dependancy Injection](https://developer.android.com/training/dependency-injection)
 
@@ -24,10 +24,15 @@ This document will be updated as the project progresses.
 
     - [Dagger](https://developer.android.com/training/dependency-injection/dagger-basics)
         - dependancy injection library for Java, Kotlin & Android
+        - manages dependencies which results in limiting project's complexity as it scales up
+        - automatically generates code that mimics the code you would otherwise have hand-written
         - provides fully static and compile-time dependencies addressing many of the dev & performance issues of reflection-based solutions (such as [Guice](https://en.wikipedia.org/wiki/Google_Guice))
+        - because the code is generated at compile time, it's traceable and more performant than other reflection-based solutions such as Guice
 
     - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
         - dependancy injection library for Android
+        - built on top of Dagger so it can reduce complexity even more
+        - provides a standard way to incorporate Dagger dependency injection into Android app
         - defines a standard way to do DI by providing containers for every Android class in project and managing their lifecycles automatically
         - built on top of Dagger to benefit from compilte time correctness, runtime performance, scalability and Android Studio support 
 
