@@ -1,7 +1,7 @@
 package com.example.foodie.di
 
-import com.example.foodie.Constants.Constants.BASE_URL
-import com.example.foodie.FoodRecipesAPI
+import com.example.foodie.util.Constants.Constants.BASE_URL
+import com.example.foodie.data.network.FoodRecipesAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
