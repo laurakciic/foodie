@@ -11,7 +11,14 @@ This document will be updated as the project progresses.
 - Kotlin, Android Studio, Git
 - Navigation Component, RecyclerView, Kotlin Coroutines
 
-- libraries
+- JSON to Kotlin plugin for generating Model classes for API 
+    - the plugin lets us copy and paste JSON API response and it automatically generates necessary classes and fields (for API response) 
+
+- DiffUtil
+    - instead of notifyDataSetChanged() in RecipesAdapter which is an overkill regarding performance because it's updating the list all over again without checking if new list of food recipes contains some recipes from the old list
+    - will check and compare old list of food recipes with the new list and update only those recipes (views) which are new
+
+- LIBRARIES
     - [ShimmerRecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
         - library which provides pretty shimmer effect on [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
 
@@ -49,9 +56,6 @@ This document will be updated as the project progresses.
         - [Binding Adapters]()
             - used to create custom binding attribute for views inside layout XML file
 
-
-- JSON to Kotlin plugin for generating Model classes for API 
-    - the plugin lets us copy and paste JSON API response and it automatically generates necessary classes and fields (for API response) 
 
 ## Obstacles & Solutions 
 

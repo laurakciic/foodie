@@ -2,9 +2,11 @@ package com.example.foodie.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.models.Result
+import com.example.foodie.util.RecipesDiffUtil
 import foodie.databinding.RecipesRowLayoutBinding   // automatically generated class
 
 // extends RecyclerView.Adapter, passed MyViewHolder class
@@ -52,7 +54,15 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
     // getting results from FoodRecipe and storing them inside recipe var (empty list)
     // every time there's new data from this fun, we want to store that data inside empty list recipes var
     fun setData(newData: FoodRecipe){
+
+        // calling RecipesDiffUtil class and passing old and new list
+        // .results to access data because we're using model class (Result) and not FoodRecipe
+        val recipesDiffUtil = RecipesDiffUtil(recipe, newData.results)
+        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)    // calculate diff between those 2 lists, will update only views that are not the same
         recipe = newData.results
-        notifyDataSetChanged()          // tell RecyclerView to update the values (views) when recieveing new data
+        diffUtilResult.dispatchUpdatesTo(this)                   // this refers to this class which is an RecyclerView adapter
+
+        //notifyDataSetChanged()     tell RecyclerView to update the values (views) when recieveing new data - overkill
+
     }
 }
