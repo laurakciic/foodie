@@ -14,7 +14,7 @@ This document will be updated as the project progresses.
 
 - libraries
     - [ShimmerRecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
-        - library which provides pretty shimmer effect on my [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
+        - library which provides pretty shimmer effect on [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
 
     - [Retrofit](https://square.github.io/retrofit/)
         - a typesafe HTTP client library
@@ -35,6 +35,21 @@ This document will be updated as the project progresses.
         - provides a standard way to incorporate Dagger dependency injection into Android app
         - defines a standard way to do DI by providing containers for every Android class in project and managing their lifecycles automatically
         - built on top of Dagger to benefit from compilte time correctness, runtime performance, scalability and Android Studio support 
+
+    - [Data Binding]()
+        - support library which makes possible to bind data to views in declarative format using XML layouts instead of setting them programatically
+        - generates new class behind the scenes 
+            - ex. for fragment_main.xml -> FragmentMainBinding class will be generated
+            - new class can be used to bind actual data from UI with an actual variable, from activities/fragments
+
+        - converts any XML layout file to Data Binding Layout
+            - root element on that layout file becomes layout element 
+            - that layout element will contain all other views inside
+            - we can also create diff variables that can easily be used to set data directly on views
+        - helps to deal with findViewById in more elegant way to reduce boiler plate code & has many other benefits
+        - [Binding Adapters]()
+            - used to create custom binding attribute for views inside layout XML file
+
 
 - JSON to Kotlin plugin for generating Model classes for API 
     - the plugin lets us copy and paste JSON API response and it automatically generates necessary classes and fields (for API response) 
