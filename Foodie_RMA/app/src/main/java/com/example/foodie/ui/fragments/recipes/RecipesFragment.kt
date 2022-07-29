@@ -16,7 +16,8 @@ import com.example.foodie.viewModels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import foodie.databinding.FragmentRecipesBinding
 
-@AndroidEntryPoint
+// initialized view models and recycler view adapter
+@AndroidEntryPoint      // here and in MainActivity, important because of Hilt DI
 class RecipesFragment : Fragment() {
 
     private var _binding: FragmentRecipesBinding? = null

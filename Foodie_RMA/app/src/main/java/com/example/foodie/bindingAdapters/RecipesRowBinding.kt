@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import coil.load
 import foodie.R
 
-// holds all the bindings for recipes_row_layout
+// holds all the bindings (binding adaptors) for recipes_row_layout
 class RecipesRowBinding {
 
     // companion obj so it can access fun inside it elsewhere in project

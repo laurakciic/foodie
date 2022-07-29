@@ -9,7 +9,11 @@ import com.example.foodie.models.Result
 import com.example.foodie.util.RecipesDiffUtil
 import foodie.databinding.RecipesRowLayoutBinding   // automatically generated class
 
+// RecipesAdapter - needed in order to display API data in recycler view
+// also binded recipes adapter data with recipes_row_layout
 // extends RecyclerView.Adapter, passed MyViewHolder class
+
+// also created RecipesDiffUtil class for RecipesAdapter
 class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
     private var recipes = emptyList<Result>()        // empty list var is a type of Result model class
