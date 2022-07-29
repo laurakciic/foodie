@@ -4,18 +4,24 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.core.content.getSystemService
-import androidx.hilt.lifecycle.ViewModelInject
+import android.os.Parcelable
+import androidx.lifecycle.*
+//import android.os.Build
+//import androidx.annotation.RequiresApi
+//import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodie.data.Repository
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.util.NetworkResult
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
+import java.lang.Exception
+import javax.inject.Inject
 
 // should extend ViewModel but since we are going to need an application reference in this view model
 //  then we're going to extend AndroidViewModel
@@ -27,7 +33,9 @@ import retrofit2.Response
 
 // created fun that checks internet conn
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+// @AndroidEntryPoint
+class MainViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ): AndroidViewModel(application) {
@@ -48,6 +56,11 @@ class MainViewModel @ViewModelInject constructor(
             try {                           // repository (injected in MainViewModel) calls remote (to get the access of RemoteDataSource) which then calls getRecipes (created in RemoteDataSource)
                 val response = repository.remote.getRecipes(queries)    // passing map of queries (from param)
                 recipesResponse.value = handleFoodRecipesResponse(response)
+
+                val foodRecipe = recipesResponse.value!!.data
+                if(foodRecipe != null) {
+
+                }
             } catch (e: Exception) {
                 recipesResponse.value = NetworkResult.Error("Recipes not found.")
             }
@@ -69,7 +82,7 @@ class MainViewModel @ViewModelInject constructor(
                 return NetworkResult.Error("API Key Limited.")
             }
 
-            // sometimes result is successfull from API but it's empty (no recipes for specified queries)
+            // sometimes result is successful from API but it's empty (no recipes for specified queries)
             response.body()!!.results.isNullOrEmpty() -> {
                 return NetworkResult.Error("Recipes not found.")
             }

@@ -1,11 +1,11 @@
 package com.example.foodie.di
 
-import com.example.foodie.util.Constants.Constants.BASE_URL
 import com.example.foodie.data.network.FoodRecipesAPI
+import com.example.foodie.util.Constants.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
-// all bindings inside NetworkModule will be available in ApplicationComponent
+@InstallIn(SingletonComponent::class)
+// all bindings inside NetworkModule will be available in SingletonComponent
 
 object NetworkModule {
 

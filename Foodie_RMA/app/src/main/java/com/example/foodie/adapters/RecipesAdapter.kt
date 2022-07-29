@@ -42,7 +42,7 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
                                                  //   to get dynamically the position of a row
         // holder is MyViewHolder
         // we need to call its bind() fun to bind var from recipes_row_layout with currentResult in his onBindViewHolder
-        // this will make RecyclerView update each and every time new data from API is recieved
+        // this will make RecyclerView update each and every time new data from API is received
         holder.bind(currentRecipe)
     }
 
@@ -63,7 +63,7 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
         recipes = newData.results
         diffUtilResult.dispatchUpdatesTo(this)                   // this refers to this class which is an RecyclerView adapter
 
-        //notifyDataSetChanged()     tell RecyclerView to update the values (views) when recieveing new data - overkill
+        //notifyDataSetChanged()     tell RecyclerView to update the values (views) when receiving new data - overkill
 
     }
 }

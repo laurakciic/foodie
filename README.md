@@ -56,6 +56,9 @@ This document will be updated as the project progresses.
         - [Binding Adapters]()
             - used to create custom binding attribute for views inside layout XML file
 
+    - [Coil]()
+        - image loading lib for Android backed by Kotlin Coroutines
+        - fast, lightweight, easy to use
 
 ## Obstacles & Solutions 
 

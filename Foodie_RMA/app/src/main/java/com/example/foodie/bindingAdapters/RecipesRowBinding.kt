@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import coil.load
 import foodie.R
 
 // holds all the bindings for recipes_row_layout
@@ -12,6 +13,16 @@ class RecipesRowBinding {
 
     // companion obj so it can access fun inside it elsewhere in project
     companion object {
+
+        // fun using Coil to display images inside recycler view
+        // params: ImageView on which we're going to use this fun/binding adaptor, and image url
+        @BindingAdapter("loadImageFromUrl")
+        @JvmStatic
+        fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {
+            imageView.load(imageUrl) {
+                crossfade(600)  // when image is loading it will have a fade in animation 600 ms
+            }
+        }
 
         // convert int value of number of likes to string
         // params: view on which we're going to use this fun (TextView), value (integer) of likes
