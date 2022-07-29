@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- data binding layout inside this recipes row layout-->
-    <!-- result variable is used to set data to all views down below -->
+    <!-- result variable is used to set data to all views down below (insert data into a title, desc..) -->
+    <!--    ex. grabbing title from API (Result model class and binding it with recipes_row_layout) -->
+    <!-- var result is binded with actual data in RecipesAdapter class in fun bind() -->
     <data>
         <variable
             name="result"
@@ -58,7 +60,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/courgette"
                     android:maxLines="2"
-                    android:text="TextView"
+                    android:text="@{result.title}"
                     android:textColor="@color/darker"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -74,7 +76,7 @@
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+                    android:text="@{result.summary}"
                     android:textColor="@color/darkGray"
                     app:layout_constraintEnd_toEndOf="@+id/title_textView"
                     app:layout_constraintStart_toStartOf="@+id/title_textView"
@@ -100,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100"
+                    setNumberOfLikes="@{result.aggregateLikes}"
                     android:textColor="@color/red"
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="@+id/description_textView"
@@ -121,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="100"
+                    setNumberOfMinutes="@{result.readyInMinutes}"
                     android:textColor="@color/yellow"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/heart_textView"
@@ -130,6 +134,7 @@
                     android:id="@+id/leaf_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    applyVeganColour="@{result.vegan}"
                     app:layout_constraintEnd_toEndOf="@+id/leaf_textView"
                     app:layout_constraintStart_toStartOf="@+id/leaf_textView"
                     app:layout_constraintTop_toTopOf="@+id/clock_imageView"
@@ -139,8 +144,9 @@
                     android:id="@+id/leaf_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    applyVeganColour="@{result.vegan}"
                     android:layout_marginStart="24dp"
-                    android:text="100"
+                    android:text="Vegan"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/clock_textView"
                     app:layout_constraintTop_toBottomOf="@+id/leaf_imageView" />

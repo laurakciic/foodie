@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 // info we will recieve from API:
 data class Result(
     @SerializedName("aggregateLikes")
-    val aggregateLikes: Int,
+    val aggregateLikes: Int,                    // converted to String so it can be displayed in TextView
     @SerializedName("cheap")
     val cheap: Boolean,
     @SerializedName("dairyFree")
@@ -24,7 +24,7 @@ data class Result(
     @SerializedName("image")
     val image: String,
     @SerializedName("readyInMinutes")
-    val readyInMinutes: Int,
+    val readyInMinutes: Int,                    // converted to String so it can be displayed in TextView
     @SerializedName("sourceName")
     val sourceName: String,
     @SerializedName("sourceUrl")

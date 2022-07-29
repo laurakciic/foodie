@@ -12,7 +12,7 @@ import foodie.databinding.RecipesRowLayoutBinding   // automatically generated c
 // extends RecyclerView.Adapter, passed MyViewHolder class
 class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
-    private var recipe = emptyList<Result>()        // empty list var is a type of Result model class
+    private var recipes = emptyList<Result>()        // empty list var is a type of Result model class
 
     class MyViewHolder(private val binding: RecipesRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {     // passing the root element from recipes_row_layout.xml
@@ -37,16 +37,17 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
     }                                       //      and binding
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentResult = recipe[position]    // stores current item from RecyclerView because we're using position param
-                                                //   to get dynamically the position of a row
+        // creating a var that will hold every row in RecyclerView and then we're binding that data/recipe to recipe_row_layout with bind() fun above
+        val currentRecipe = recipes[position]    // stores current item from RecyclerView because we're using position param
+                                                 //   to get dynamically the position of a row
         // holder is MyViewHolder
         // we need to call its bind() fun to bind var from recipes_row_layout with currentResult in his onBindViewHolder
         // this will make RecyclerView update each and every time new data from API is recieved
-        holder.bind(currentResult)
+        holder.bind(currentRecipe)
     }
 
     override fun getItemCount(): Int {
-        return recipe.size                  // recipe is an empty list created above
+        return recipes.size                  // recipes is an empty list created above
     }
 
     // fun used from recipes fragment to set data from recipe (called every time we fetch data from API)
@@ -57,9 +58,9 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
         // calling RecipesDiffUtil class and passing old and new list
         // .results to access data because we're using model class (Result) and not FoodRecipe
-        val recipesDiffUtil = RecipesDiffUtil(recipe, newData.results)
+        val recipesDiffUtil = RecipesDiffUtil(recipes, newData.results)
         val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)    // calculate diff between those 2 lists, will update only views that are not the same
-        recipe = newData.results
+        recipes = newData.results
         diffUtilResult.dispatchUpdatesTo(this)                   // this refers to this class which is an RecyclerView adapter
 
         //notifyDataSetChanged()     tell RecyclerView to update the values (views) when recieveing new data - overkill
