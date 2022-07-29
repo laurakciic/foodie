@@ -4,6 +4,10 @@ package com.example.foodie.models
 import com.example.foodie.models.ExtendedIngredient
 import com.google.gson.annotations.SerializedName
 
+// Result class is binded with recipes_row_layout.xml (data binding)
+// = binded API data with recipes_row_layout.xml
+
+// info we will recieve from API:
 data class Result(
     @SerializedName("aggregateLikes")
     val aggregateLikes: Int,

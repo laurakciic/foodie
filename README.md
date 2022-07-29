@@ -9,8 +9,7 @@ This document will be updated as the project progresses.
 ## Tools & Technologies
 
 - Kotlin, Android Studio, Git
-- Data Binding, Navigation Component, RecyclerView, Kotlin Coroutines
-- [Dependancy Injection](https://developer.android.com/training/dependency-injection)
+- Navigation Component, RecyclerView, Kotlin Coroutines
 
 - libraries
     - [ShimmerRecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
@@ -23,7 +22,7 @@ This document will be updated as the project progresses.
         - each of the functions can represent a different HTTP request
 
     - [Dagger](https://developer.android.com/training/dependency-injection/dagger-basics)
-        - dependancy injection library for Java, Kotlin & Android
+        - [dependancy injection](https://developer.android.com/training/dependency-injection) library for Java, Kotlin & Android
         - manages dependencies which results in limiting project's complexity as it scales up
         - automatically generates code that mimics the code you would otherwise have hand-written
         - provides fully static and compile-time dependencies addressing many of the dev & performance issues of reflection-based solutions (such as [Guice](https://en.wikipedia.org/wiki/Google_Guice))

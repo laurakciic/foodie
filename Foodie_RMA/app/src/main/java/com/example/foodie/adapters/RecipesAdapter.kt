@@ -1,0 +1,58 @@
+package com.example.foodie.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.foodie.models.FoodRecipe
+import com.example.foodie.models.Result
+import foodie.databinding.RecipesRowLayoutBinding   // automatically generated class
+
+// extends RecyclerView.Adapter, passed MyViewHolder class
+class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
+
+    private var recipe = emptyList<Result>()        // empty list var is a type of Result model class
+
+    class MyViewHolder(private val binding: RecipesRowLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {     // passing the root element from recipes_row_layout.xml
+
+        fun bind(result: Result) {                  // left var result = var created inside recipes_row_layout
+            binding.result = result                 // right var result = var passed in param
+            binding.executePendingBindings()        // updates layout whenever there's a change inside data
+        }
+
+        companion object {
+            // with this fun we're returning class MyViewHolder created above
+            fun from(parent: ViewGroup): MyViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = RecipesRowLayoutBinding.inflate(layoutInflater, parent, false)
+                return MyViewHolder(binding)    // binding is passed by inflating the layout (recipes_row_layout)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        return MyViewHolder.from(parent)    // gets parent from param, parent is then used in from() fun to create LayoutInflater
+    }                                       //      and binding
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val currentResult = recipe[position]    // stores current item from RecyclerView because we're using position param
+                                                //   to get dynamically the position of a row
+        // holder is MyViewHolder
+        // we need to call its bind() fun to bind var from recipes_row_layout with currentResult in his onBindViewHolder
+        // this will make RecyclerView update each and every time new data from API is recieved
+        holder.bind(currentResult)
+    }
+
+    override fun getItemCount(): Int {
+        return recipe.size                  // recipe is an empty list created above
+    }
+
+    // fun used from recipes fragment to set data from recipe (called every time we fetch data from API)
+    // passing newData every time
+    // getting results from FoodRecipe and storing them inside recipe var (empty list)
+    // every time there's new data from this fun, we want to store that data inside empty list recipes var
+    fun setData(newData: FoodRecipe){
+        recipe = newData.results
+        notifyDataSetChanged()          // tell RecyclerView to update the values (views) when recieveing new data
+    }
+}
