@@ -66,7 +66,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.023"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/recipe_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +91,6 @@
                     android:layout_marginBottom="36dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/heart_textView"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/heart_textView"
                     app:layout_constraintTop_toBottomOf="@+id/description_textView"
                     app:layout_constraintVertical_bias="0.0"
@@ -102,7 +101,6 @@
                     android:id="@+id/heart_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
                     setNumberOfLikes="@{result.aggregateLikes}"
                     android:textColor="@color/red"
                     android:textAlignment="center"
@@ -124,7 +122,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:text="100"
                     setNumberOfMinutes="@{result.readyInMinutes}"
                     android:textColor="@color/yellow"
                     android:textAlignment="center"

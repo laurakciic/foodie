@@ -1,11 +1,9 @@
-package com.example.foodie
+package com.example.foodie.viewModels
 
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Parcelable
-import androidx.lifecycle.*
 //import android.os.Build
 //import androidx.annotation.RequiresApi
 //import androidx.core.content.getSystemService
@@ -15,10 +13,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodie.data.Repository
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.util.NetworkResult
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
