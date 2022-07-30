@@ -14,6 +14,7 @@ import com.example.foodie.viewModels.MainViewModel
 import com.example.foodie.adapters.RecipesAdapter
 import com.example.foodie.util.Constants.Constants.API_KEY
 import com.example.foodie.util.NetworkResult
+import com.example.foodie.util.observeOnce
 import com.example.foodie.viewModels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import foodie.databinding.FragmentRecipesBinding
@@ -63,7 +64,7 @@ class RecipesFragment : Fragment() {
     private fun readDatabase() {
         // launches coroutine
         lifecycleScope.launch {
-            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {     // if DB isn't empty, read data and display it in RecyclerView
                     Log.d("RecipesFragment", "readDatabase called")
                     mAdapter.setData(database[0].foodRecipe)
@@ -86,7 +87,7 @@ class RecipesFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {       // when response is successful get data and pass it to RecyclerView adapter
                     hideShimmerEffect()             //  and hide shimmer eff
-                    response.data?.let { mAdapter.setData(it) }      // calling recipesAdapter, his method setData and passing FoodRecipe we received from API
+                    response.data?.let { mAdapter.setData(it) }      // populating DB with new data, calling recipesAdapter, his method setData and passing FoodRecipe we received from API
                 }                                                    // FoodRecipe (it) is nullable so ? near data is added
                 is NetworkResult.Error -> {         // in case of error, display toast message
                     hideShimmerEffect()
