@@ -1,7 +1,7 @@
 
 # Foodie
 
-Foodie represents a Kotlin mobile application for browsing various recipes working with local and remote data sources, such as [Spoonacular API](https://spoonacular.com/food-api) and ROOM database. 
+Foodie represents a Kotlin mobile application for browsing various recipes working with local and remote data sources, such as [Spoonacular API](https://spoonacular.com/food-api), SQLite & ROOM. 
 
 This document will be updated as the project progresses.
 
@@ -59,6 +59,29 @@ This document will be updated as the project progresses.
     - [Coil]()
         - image loading lib for Android backed by Kotlin Coroutines
         - fast, lightweight, easy to use
+
+    - [ROOM]()
+        - part of Android Architecture components that provides abstraction layer over SQLite to allow fluent database access while harnessing full power of SQLite
+        - considered as a better approach for data persistance than SQLiteDatabase
+        - makes it easier to work with SQLite database objects, decreasing the amount of boilerplate code and verifying SQL queries at compile-time
+        - main components: 
+            - Entity (table within a database), 
+                - ROOM lib makes table for every class that has @Entity annotation
+                - fields in the class correspond to columns in the table, therefore can be considered as small model classes with no logic
+            - Dao (Data Access Object)
+                - responsible for defining methods that access the database
+                - will contain all SQL queries
+                - there are already some predefined which can be accessed with @Insert, @Update, @Delete 
+                - manually written queries have @Query
+            - Database 
+                - contains database holder, servers as the main access point for underlying connection to application's data 
+        
+        - main advantages: 
+            - compile-time verification of SQL queries
+                - each query and entity annotation is checked which preserves app from crash issues at run time
+                - checks syntax but missing tables as well
+            - less boiler plate code
+            - easily integrated with other Architecture components like LiveData
 
 ## Obstacles & Solutions 
 
