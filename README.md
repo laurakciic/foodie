@@ -83,7 +83,7 @@ This document will be updated as the project progresses.
             - Entity (table within a database), 
                 - ROOM lib makes table for every class that has @Entity annotation
                 - fields in the class correspond to columns in the table, therefore can be considered as small model classes with no logic
-            - Dao (Data Access Object)
+            - DAO (Data Access Object)
                 - responsible for defining methods that access the database
                 - will contain all SQL queries
                 - there are already some predefined which can be accessed with @Insert, @Update, @Delete 
