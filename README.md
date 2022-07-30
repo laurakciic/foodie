@@ -18,6 +18,20 @@ This document will be updated as the project progresses.
     - instead of notifyDataSetChanged() in RecipesAdapter which is an overkill regarding performance because it's updating the list all over again without checking if new list of food recipes contains some recipes from the old list
     - will check and compare old list of food recipes with the new list and update only those recipes (views) which are new
 
+- Kotlin Flow
+    - stream of data that can be computed asynchronously
+    - can emit multiple values sequentially, as opposed to suspend functions that return only a single value
+    - 3 main entities involved in stream of data
+        - Producer - produces data that is added to the stream
+        - Intermediaries (optional) - can modify each value emitted into the strea or the stream itself
+        - Consumer - consumes values from the stream
+    - emited values must be of the same type
+    - built on top of Coroutines and can provide multiple values
+    - can stop for 2 reasons: coroutine that collects is cancelled or the producer is finished emitting items
+
+    - used to send data from Dao interface to Repository and from Repository to ViewModel 
+    
+
 - LIBRARIES
     - [ShimmerRecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
         - library which provides pretty shimmer effect on [placeholder_row_layout.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/placeholder_row_layout.xml) while data is loading 
@@ -27,6 +41,7 @@ This document will be updated as the project progresses.
         - provides communication between client & server
         - one simple interface, inside which we can create multiple functions
         - each of the functions can represent a different HTTP request
+        - RemoteDataSource uses Retrofit lib to fetch data from Spoonacular API
 
     - [Dagger](https://developer.android.com/training/dependency-injection/dagger-basics)
         - [dependancy injection](https://developer.android.com/training/dependency-injection) library for Java, Kotlin & Android
@@ -82,6 +97,8 @@ This document will be updated as the project progresses.
                 - checks syntax but missing tables as well
             - less boiler plate code
             - easily integrated with other Architecture components like LiveData
+
+        - LocalDataSource will cache API response and use it a first source of truth
 
 ## Obstacles & Solutions 
 
