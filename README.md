@@ -12,7 +12,7 @@ This document will be updated as the project progresses.
 - Navigation Component, RecyclerView, Kotlin Coroutines
 
 - JSON to Kotlin plugin for generating Model classes for API 
-    - the plugin lets us copy and paste JSON API response and it automatically generates necessary classes and fields (for API response) 
+    - the plugin lets us copy and paste JSON API response and automatically generates necessary classes and fields (for API response) 
 
 - DiffUtil
     - instead of notifyDataSetChanged() in RecipesAdapter which is an overkill regarding performance because it's updating the list all over again without checking if new list of food recipes contains some recipes from the old list
