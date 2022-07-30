@@ -6,7 +6,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 // will fetch data from FoodRecipesAPI (Spoonacular)
-// FoodRecipesAPI will be injected inside this RemoteDataSource
+// FoodRecipesAPI injected inside this RemoteDataSource
 // RemoteDataSource will request data from an API
 
 // RemoteDataSource and LocalDataSource (local database) will be injected in one repository

@@ -9,9 +9,10 @@ import javax.inject.Inject
 
 @ViewModelScoped                 // scope ann for bindings that should exist inside the life of an activity and survive conf change as well
 class Repository @Inject constructor(
-    remoteDataSource: RemoteDataSource
+    remoteDataSource: RemoteDataSource,
+    localDataSource: LocalDataSource
 ){
 
     val remote = remoteDataSource       // so we can access it inside ViewModel
-
+    val local = localDataSource
 }
