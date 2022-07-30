@@ -21,6 +21,7 @@ class RecipesRowBinding {
         fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {
             imageView.load(imageUrl) {
                 crossfade(600)  // when image is loading it will have a fade in animation 600 ms
+                error(R.drawable.ic_error_placeholder)
             }
         }
 
