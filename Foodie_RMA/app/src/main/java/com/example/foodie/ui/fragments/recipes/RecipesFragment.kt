@@ -30,7 +30,6 @@ class RecipesFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel // initialize MainViewModel (class)
     private lateinit var recipesViewModel: RecipesViewModel
     private val mAdapter by lazy { RecipesAdapter() }       // lazy initialization,for RecyclerView adapter setup
-    private lateinit var mView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +42,10 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        //mView = inflater.inflate(R.layout.fragment_recipes, container, false)
 
         _binding = FragmentRecipesBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this   // because of LiveData obj and var
+        binding.mainViewModel = mainViewModel
 
         // whenever app starts, RecyclerView will setup and showShimmerEffect will appear
         // shimmer effect is active until we get data from API
@@ -126,4 +126,8 @@ class RecipesFragment : Fragment() {
         binding.recyclerView.hideShimmer()
     }
 
+    override fun onDestroy() {      // whenever RecipesFragment is destroyed
+        super.onDestroy()
+        _binding = null             // to avoid memory leaks
+    }
 }
