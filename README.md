@@ -31,6 +31,16 @@ This document will be updated as the project progresses.
 
     - used to send data from Dao interface to Repository and from Repository to ViewModel 
     
+- Chips
+    - compact components that display discrete info
+    - flexible enough to be used for entering info, filtering content, selection and triggering actions
+    - mostly used in a group
+    - types from a design POV: 
+        1. input/entry (to a field)
+        2. choice (single choice selection in a group of 2 or more chips)
+        3. filter (multiple choice selection in a group of 2 or more chips) - checkmark icon on the left
+            - used in Foodie for Meal Type and Diet Type
+        4. action (used to trigger a given action, contain icon and a text label)
 
 - LIBRARIES
     - [ShimmerRecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
@@ -108,7 +118,7 @@ This document will be updated as the project progresses.
         - 2 different types of implementation to store data
             1. Preference DataStore - uses key & value pairs to store data, does not provide type safety
             2. Proto Datastore      - stores data as a custom type with specified schema using protocol buffers
-            
+
 ## Obstacles & Solutions 
 
 ### 1. NavHostFragment couldn't be found (app crashing with clean debbug, no errors)
