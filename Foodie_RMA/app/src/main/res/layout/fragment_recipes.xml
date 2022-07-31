@@ -33,7 +33,7 @@
         <!-- recycler item count = 3 because we want to display 3 rows -->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/meal_diet_selection_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"

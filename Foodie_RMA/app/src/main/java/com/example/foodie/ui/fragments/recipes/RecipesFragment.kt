@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodie.viewModels.MainViewModel
 import com.example.foodie.adapters.RecipesAdapter
@@ -17,6 +18,7 @@ import com.example.foodie.util.NetworkResult
 import com.example.foodie.util.observeOnce
 import com.example.foodie.viewModels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import foodie.R
 import foodie.databinding.FragmentRecipesBinding
 import kotlinx.coroutines.launch
 
@@ -51,6 +53,10 @@ class RecipesFragment : Fragment() {
         // shimmer effect is active until we get data from API
         setupRecyclerView()
         readDatabase()
+
+        binding.mealDietSelectionBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+        }
 
         return binding.root
     }
