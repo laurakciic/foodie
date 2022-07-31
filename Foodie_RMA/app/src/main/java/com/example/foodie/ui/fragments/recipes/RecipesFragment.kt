@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodie.viewModels.MainViewModel
 import com.example.foodie.adapters.RecipesAdapter
@@ -29,6 +30,8 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint      // here and in MainActivity, important because of Hilt DI
 class RecipesFragment : Fragment() {
+
+    private val args by navArgs<RecipesFragmentArgs>()
 
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
@@ -75,9 +78,9 @@ class RecipesFragment : Fragment() {
         // launches coroutine
         lifecycleScope.launch {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                if (database.isNotEmpty()) {     // if DB isn't empty, read data and display it in RecyclerView
-                    Log.d("RecipesFragment", "readDatabase called")
-                    mAdapter.setData(database[0].foodRecipe)
+                if (database.isNotEmpty() && !args.backFromBottomSheet) {     // if DB isn't empty && args from backFromBottomSheet is false, read data and display it in RecyclerView
+                    Log.d("RecipesFragment", "readDatabase called")  // every time we get from bottom sheet we're gonna get new data
+                    mAdapter.setData(database.first().foodRecipe)
                     hideShimmerEffect()
                 } else {
                     requestApiData()
