@@ -3,6 +3,9 @@ package com.example.foodie.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.example.foodie.util.Constants
+import com.example.foodie.util.Constants.Constants.DEFAULT_DIET_TYPE
+import com.example.foodie.util.Constants.Constants.DEFAULT_MEAL_TYPE
+import com.example.foodie.util.Constants.Constants.DEFAULT_RECIPES_NUMBER
 import com.example.foodie.util.Constants.Constants.QUERY_ADD_RECIPE_INFO
 import com.example.foodie.util.Constants.Constants.QUERY_API_KEY
 import com.example.foodie.util.Constants.Constants.QUERY_DIET
@@ -17,10 +20,10 @@ class RecipesViewModel(application: Application): AndroidViewModel(application) 
         val queries: HashMap<String, String> = HashMap()
 
         //        key                     value
-        queries[QUERY_NUMBER]            = "50"        // num of recipes we want to get from request, possible from 1 to 100
+        queries[QUERY_NUMBER]            = DEFAULT_RECIPES_NUMBER  // num of recipes we want to get from request, possible from 1 to 100
         queries[QUERY_API_KEY]           = API_KEY
-        queries[QUERY_TYPE]              = "main course"     // default type
-        queries[QUERY_DIET]              = "gluten free"     // default type
+        queries[QUERY_TYPE]              = DEFAULT_MEAL_TYPE
+        queries[QUERY_DIET]              = DEFAULT_DIET_TYPE
         queries[QUERY_ADD_RECIPE_INFO]   = "true"
         queries[QUERY_FILL_INGREDIENTS]  = "true"
 
