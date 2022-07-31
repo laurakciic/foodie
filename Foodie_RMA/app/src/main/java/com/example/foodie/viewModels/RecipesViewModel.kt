@@ -16,6 +16,7 @@ import com.example.foodie.util.Constants.Constants.QUERY_DIET
 import com.example.foodie.util.Constants.Constants.QUERY_FILL_INGREDIENTS
 import com.example.foodie.util.Constants.Constants.QUERY_NUMBER
 import com.example.foodie.util.Constants.Constants.QUERY_TYPE
+import dagger.hilt.android.lifecycle.HiltViewModel
 import foodie.BuildConfig.API_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -25,12 +26,13 @@ import okhttp3.Dispatcher
 import javax.inject.Inject
 
 // injected DataStoreRepository inside RecipesViewModel
+@HiltViewModel
 class RecipesViewModel @Inject constructor(
     application: Application,
     private val dataStoreRepository: DataStoreRepository
     ): AndroidViewModel(application) {
 
-    private var mealType = DEFAULT_MEAL_TYPE
+    private var mealType = DEFAULT_MEAL_TYPE    // when applyQuery runs, their value will change
     private var dietType = DEFAULT_DIET_TYPE
 
     // var of type Flow of MealAndDietType (hover over var)
