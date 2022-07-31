@@ -100,6 +100,15 @@ This document will be updated as the project progresses.
 
         - LocalDataSource will cache API response and use it a first source of truth
 
+    [DataStore]()
+        - data storage solution replacing Shared Preferences (provides synchronous API, not main-thread safe)
+        - safe to use in UI thread because it uses Dispatchers.IO under the hood (main-thread safe)
+        - no run-time exceptions
+        - uses Kotlin Coroutines and Flow to store data
+        - 2 different types of implementation to store data
+            1. Preference DataStore - uses key & value pairs to store data, does not provide type safety
+            2. Proto Datastore      - stores data as a custom type with specified schema using protocol buffers
+            
 ## Obstacles & Solutions 
 
 ### 1. NavHostFragment couldn't be found (app crashing with clean debbug, no errors)
