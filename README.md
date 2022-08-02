@@ -30,7 +30,16 @@ This document will be updated as the project progresses.
     - can stop for 2 reasons: coroutine that collects is cancelled or the producer is finished emitting items
 
     - used to send data from Dao interface to Repository and from Repository to ViewModel 
-    
+
+- StateFlow
+    - part of KotlinFlowAPI that enables Flow to optimally emit state updates and emit values to multiple consumers
+    - 2 implementations:
+    1. StateFlow (ReadOnly) - always active and in memory (represents hot stream of data)
+                            - requires an initial state to be passed in it's constructor (LiveData does not)
+                            - also LiveData.observe() automatically unregisters the consumer when the view goes to the STOPPED state, whereas collecting from a StateFlow or any other flow does not
+                            - represents hot stream od data ()
+    2. MutableStateFlow 
+
 - Chips
     - compact components that display discrete info
     - flexible enough to be used for entering info, filtering content, selection and triggering actions

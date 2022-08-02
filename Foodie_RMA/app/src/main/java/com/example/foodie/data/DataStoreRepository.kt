@@ -53,6 +53,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         }
     }
 
+    // read DataStore to get values we stored
     // when reading values from BottomSheet we're using Flow to pass data class MealAndDietType which has 4 diff fields
     // var readMealAndDietType type Flow which contains MealAndDietType obj
     val readMealAndDietType: Flow<MealAndDietType> = dataStore.data
