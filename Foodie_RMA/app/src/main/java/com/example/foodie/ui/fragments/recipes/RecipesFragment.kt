@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 // initialized view models and recycler view adapter
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint      // here and in MainActivity, important because of Hilt DI
-class RecipesFragment : Fragment() {
+class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val args by navArgs<RecipesFragmentArgs>()
 
@@ -59,10 +59,12 @@ class RecipesFragment : Fragment() {
         binding.lifecycleOwner = this   // because of LiveData obj and var
         binding.mainViewModel = mainViewModel
 
+        setHasOptionsMenu(true)
+
         // whenever app starts, RecyclerView will setup and showShimmerEffect will appear
         // shimmer effect is active until we get data from API
         setupRecyclerView()
-        
+
         // inside this observer, get the latest value from DataStore
         // and set that value to backOnline var inside RecipesViewModel
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
@@ -95,6 +97,23 @@ class RecipesFragment : Fragment() {
         binding.recyclerView.adapter = mAdapter   // setting adapter to RecipesAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.recipes_menu, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 
     private fun readDatabase() {
@@ -173,4 +192,5 @@ class RecipesFragment : Fragment() {
             binding.recyclerView.layoutManager?.onSaveInstanceState()
         _binding = null             // to avoid memory leaks
     }
+
 }
