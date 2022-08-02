@@ -1,6 +1,7 @@
 package com.example.foodie.viewModels
 
 import android.app.Application
+import android.widget.Toast
 import androidx.datastore.dataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,6 +37,8 @@ class RecipesViewModel @Inject constructor(
 
     private var mealType = DEFAULT_MEAL_TYPE    // when applyQuery runs, their value will change
     private var dietType = DEFAULT_DIET_TYPE
+
+    var networkStatus = false
 
     // var of type Flow of MealAndDietType (hover over var)
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
@@ -85,6 +88,12 @@ class RecipesViewModel @Inject constructor(
          }
 
          return queries
+    }
+
+    fun showNetworkStatus() {       // fun check value of networkStatus var defined at the beginning
+        if(!networkStatus) {        // if networkStatus false
+            Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

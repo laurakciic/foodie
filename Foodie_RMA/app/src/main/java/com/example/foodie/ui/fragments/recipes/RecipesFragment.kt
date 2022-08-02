@@ -69,11 +69,17 @@ class RecipesFragment : Fragment() {
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->                                        // because collect is a suspend fun, we need to call this inside Kotlin Coroutine (lifecycleScope)
                     Log.d("NetworkListener", status.toString())
+                    recipesViewModel.networkStatus = status
+                    recipesViewModel.showNetworkStatus()
                 }
         }
 
         binding.mealDietSelectionBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            if(recipesViewModel.networkStatus) {        // only when networkStatus is true we want to navigate to bottom sheet
+                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            } else {
+                recipesViewModel.showNetworkStatus()
+            }
         }
 
         return binding.root
