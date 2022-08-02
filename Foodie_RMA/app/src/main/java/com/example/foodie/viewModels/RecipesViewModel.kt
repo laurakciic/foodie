@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.datastore.dataStore
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodie.data.DataStoreRepository
 import com.example.foodie.data.MealAndDietType
@@ -39,10 +40,12 @@ class RecipesViewModel @Inject constructor(
     private var dietType = DEFAULT_DIET_TYPE
 
     var networkStatus = false
+    var backOnline = false
 
     // var of type Flow of MealAndDietType (hover over var)
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
-
+    // var from dataStoreRep, converting this flow as live data
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
     // calling saveMealAndDietType fun from dataStoreRepository
     // inserting exact values from fun parameters
@@ -56,6 +59,11 @@ class RecipesViewModel @Inject constructor(
             )
         }
     }
+
+    fun saveBackOnline(backOnline: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveBackOnline((backOnline))
+        }
 
     fun saveMealAndDietTypeTemp(
         mealType: String,
@@ -91,8 +99,12 @@ class RecipesViewModel @Inject constructor(
     }
 
     fun showNetworkStatus() {       // fun check value of networkStatus var defined at the beginning
-        if(!networkStatus) {        // if networkStatus false
+        if(!networkStatus) {        // if networkStatus false (when we loose internet conn)
             Toast.makeText(getApplication(), "No Internet Connection", Toast.LENGTH_SHORT).show()
+            saveBackOnline(true)    // set saveBackOnline to true
+        } else if (backOnline) {
+            Toast.makeText(getApplication(), "We're back online :)", Toast.LENGTH_SHORT).show()
+            saveBackOnline(false)
         }
     }
 

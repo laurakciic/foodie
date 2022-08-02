@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.foodie.util.Constants.Constants.DEFAULT_DIET_TYPE
 import com.example.foodie.util.Constants.Constants.DEFAULT_MEAL_TYPE
+import com.example.foodie.util.Constants.Constants.PREFERENCES_BACK_ONLINE
 import com.example.foodie.util.Constants.Constants.PREFERENCES_DIET_TYPE
 import com.example.foodie.util.Constants.Constants.PREFERENCES_DIET_TYPE_ID
 import com.example.foodie.util.Constants.Constants.PREFERENCES_MEAL_TYPE
@@ -32,6 +33,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         val selectedMealTypeId = intPreferencesKey(PREFERENCES_MEAL_TYPE_ID)
         val selectedDietType = stringPreferencesKey(PREFERENCES_DIET_TYPE)
         val selectedDietTypeId = intPreferencesKey(PREFERENCES_DIET_TYPE_ID)
+        val backOnline = booleanPreferencesKey(PREFERENCES_BACK_ONLINE)
     }
 
     private val dataStore: DataStore<Preferences> = context.dataStore
@@ -50,6 +52,14 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             preferences[PreferenceKeys.selectedMealTypeId] = mealTypeId
             preferences[PreferenceKeys.selectedDietType] = dietType
             preferences[PreferenceKeys.selectedDietTypeId] = dietTypeId
+        }
+    }
+
+    // save the value from parameters to it's preference key
+    suspend fun saveBackOnline(backOnline: Boolean) {
+        dataStore.edit { preferences ->
+            // calling pref, passing key and storing value from function params inside this key
+            preferences[PreferenceKeys.backOnline] = backOnline
         }
     }
 
@@ -81,6 +91,21 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
                 selectedDietType,
                 selectedDietTypeId
             )
+        }
+
+    // var to read the data from DataStore
+    // return the value of backOnline key
+    val readBackOnline: Flow<Boolean> = dataStore.data  // returning Flow of Boolean (backOnline)
+        .catch { exception ->
+            if(exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->   // preferences to get the key, return the value of backOnline key
+            val backOnline = preferences[PreferenceKeys.backOnline] ?: false // if there's no value, default value is false
+            backOnline
         }
 
 }

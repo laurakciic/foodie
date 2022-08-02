@@ -62,7 +62,12 @@ class RecipesFragment : Fragment() {
         // whenever app starts, RecyclerView will setup and showShimmerEffect will appear
         // shimmer effect is active until we get data from API
         setupRecyclerView()
-        readDatabase()
+        
+        // inside this observer, get the latest value from DataStore
+        // and set that value to backOnline var inside RecipesViewModel
+        recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
+            recipesViewModel.backOnline = it
+        }
 
         lifecycleScope.launchWhenStarted {
             networkListener = NetworkListener()
@@ -71,6 +76,7 @@ class RecipesFragment : Fragment() {
                     Log.d("NetworkListener", status.toString())
                     recipesViewModel.networkStatus = status
                     recipesViewModel.showNetworkStatus()
+                    readDatabase()  // whenever network changes
                 }
         }
 
