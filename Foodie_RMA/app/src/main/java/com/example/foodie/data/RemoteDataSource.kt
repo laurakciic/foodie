@@ -23,5 +23,9 @@ class RemoteDataSource @Inject constructor(         // by annotating inject cons
         return foodRecipesAPI.getRecipes(queries)
     }
 
+    suspend fun searchRecipes(searchQuery: Map<String, String>): Response<FoodRecipe> {
+        return foodRecipesAPI.searchRecipes(searchQuery)
+    }
+
 }
 
