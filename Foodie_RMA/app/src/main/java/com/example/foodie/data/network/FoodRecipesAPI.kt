@@ -15,8 +15,9 @@ interface FoodRecipesAPI {
     // QueryMap - all queries inside one map
     // FoodRecipe is wrapped inside of Response class which is part of Retrofit library
     @GET("/recipes/complexSearch")
-    suspend fun getRecipes(
-        @QueryMap queries: Map<String, String>
-    ): Response<FoodRecipe>
+    suspend fun getRecipes(@QueryMap queries: Map<String, String>): Response<FoodRecipe>
+
+    @GET("/recipes/complexSearch")
+    suspend fun searchRecipes(@QueryMap searchQuery: Map<String, String>): Response<FoodRecipe>
 
 }
