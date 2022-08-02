@@ -56,9 +56,14 @@ class MainViewModel @Inject constructor(
     // type is MutableLiveData, uses model class FoodRecipe that is wrapped inside NetworkResult
 
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    var searchedRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries)
+    }
+
+    fun searchRecipes(searchQuery: Map<String, String>) = viewModelScope.launch {
+        searchRecipesSafeCall(searchQuery)
     }
 
     // suspend because getRecipes is a suspend fun
@@ -79,6 +84,20 @@ class MainViewModel @Inject constructor(
             }
         } else {
             recipesResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private suspend fun searchRecipesSafeCall(searchQuery: Map<String, String>) {
+        searchedRecipesResponse.value = NetworkResult.Loading()     // every time we call the fun, it will respond with loading state, when we get actual data from API, we're going to response with either success or error
+        if (hasInternetConnection()) {      // then get req whose response will be stored in recipeResponse MutableLiveData obj
+            try {                           // repository (injected in MainViewModel) calls remote (to get the access of RemoteDataSource) which then calls getRecipes (created in RemoteDataSource)
+                val response = repository.remote.searchRecipes(searchQuery)    // passing map of queries (from param)
+                searchedRecipesResponse.value = handleFoodRecipesResponse(response)     // reusing handleFoodRecipesReponse fun from above, because response will be food recipe model class aswell
+            } catch (e: Exception) {
+                searchedRecipesResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            searchedRecipesResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 
