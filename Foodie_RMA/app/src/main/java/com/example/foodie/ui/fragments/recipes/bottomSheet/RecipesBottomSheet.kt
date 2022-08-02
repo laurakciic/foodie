@@ -70,7 +70,7 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
 
         // saving values using DataStore Preferences
         binding.applyBtn.setOnClickListener {
-            recipesViewModel.saveMealAndDietType(   // fun from recipesViewModel to save newest values to DataStore
+            recipesViewModel.saveMealAndDietTypeTemp(   // fun from recipesViewModel to save newest values to DataStore
                 mealTypeChip,
                 mealTypeChipId,
                 dietTypeChip,
@@ -90,10 +90,16 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
             try {
                 val targetView = chipGroup.findViewById<Chip>(chipId)
                 targetView.isChecked = true
+                chipGroup.requestChildFocus(targetView, targetView)
             } catch (e: Exception) {
                 Log.d("RecipesBottomSheet", e.message.toString())
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

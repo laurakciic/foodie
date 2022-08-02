@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodie.viewModels.MainViewModel
 import com.example.foodie.adapters.RecipesAdapter
 import com.example.foodie.util.Constants.Constants.API_KEY
+import com.example.foodie.util.NetworkListener
 import com.example.foodie.util.NetworkResult
 import com.example.foodie.util.observeOnce
 import com.example.foodie.viewModels.RecipesViewModel
@@ -40,6 +41,8 @@ class RecipesFragment : Fragment() {
     private lateinit var recipesViewModel: RecipesViewModel
     private val mAdapter by lazy { RecipesAdapter() }       // lazy initialization,for RecyclerView adapter setup
 
+    private lateinit var networkListener: NetworkListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
@@ -60,6 +63,14 @@ class RecipesFragment : Fragment() {
         // shimmer effect is active until we get data from API
         setupRecyclerView()
         readDatabase()
+
+        lifecycleScope.launchWhenStarted {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { status ->                                        // because collect is a suspend fun, we need to call this inside Kotlin Coroutine (lifecycleScope)
+                    Log.d("NetworkListener", status.toString())
+                }
+        }
 
         binding.mealDietSelectionBtn.setOnClickListener {
             findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
@@ -101,6 +112,7 @@ class RecipesFragment : Fragment() {
                 is NetworkResult.Success -> {       // when response is successful get data and pass it to RecyclerView adapter
                     hideShimmerEffect()             //  and hide shimmer eff
                     response.data?.let { mAdapter.setData(it) }      // populating DB with new data, calling recipesAdapter, his method setData and passing FoodRecipe we received from API
+                    recipesViewModel.saveMealAndDietType()
                 }                                                    // FoodRecipe (it) is nullable so ? near data is added
                 is NetworkResult.Error -> {         // in case of error, display toast message
                     hideShimmerEffect()
@@ -125,22 +137,28 @@ class RecipesFragment : Fragment() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
                 if(database.isNotEmpty()) {
-                    mAdapter.setData(database[0].foodRecipe)
+                    mAdapter.setData(database.first().foodRecipe)
                 }
             }
         }
     }
 
     private fun showShimmerEffect() {
-        binding.recyclerView.showShimmer()
+        binding.shimmerFrameLayout.startShimmer()
+        binding.shimmerFrameLayout.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
     }
 
     private fun hideShimmerEffect() {
-        binding.recyclerView.hideShimmer()
+        binding.shimmerFrameLayout.hideShimmer()
+        binding.shimmerFrameLayout.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {      // whenever RecipesFragment is destroyed
         super.onDestroyView()
+        mainViewModel.recyclerViewState =
+            binding.recyclerView.layoutManager?.onSaveInstanceState()
         _binding = null             // to avoid memory leaks
     }
 }

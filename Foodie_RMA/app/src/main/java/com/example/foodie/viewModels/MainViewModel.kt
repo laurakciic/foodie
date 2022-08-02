@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Parcelable
 import androidx.lifecycle.*
 //import android.os.Build
 //import androidx.annotation.RequiresApi
@@ -36,6 +37,8 @@ class MainViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ): AndroidViewModel(application) {
+
+    var recyclerViewState: Parcelable? = null
 
     /** ROOM DATABASE */
 

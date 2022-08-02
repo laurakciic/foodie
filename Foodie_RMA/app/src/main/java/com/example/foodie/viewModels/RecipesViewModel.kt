@@ -32,6 +32,8 @@ class RecipesViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
     ): AndroidViewModel(application) {
 
+    private lateinit var mealAndDiet: MealAndDietType
+
     private var mealType = DEFAULT_MEAL_TYPE    // when applyQuery runs, their value will change
     private var dietType = DEFAULT_DIET_TYPE
 
@@ -41,31 +43,48 @@ class RecipesViewModel @Inject constructor(
 
     // calling saveMealAndDietType fun from dataStoreRepository
     // inserting exact values from fun parameters
-    fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) =
-        viewModelScope.launch(Dispatchers.IO) {
-            dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
+    fun saveMealAndDietType() = viewModelScope.launch(Dispatchers.IO) {
+        if (this@RecipesViewModel::mealAndDiet.isInitialized) {
+            dataStoreRepository.saveMealAndDietType(
+                mealAndDiet.selectedMealType,
+                mealAndDiet.selectedMealTypeId,
+                mealAndDiet.selectedDietType,
+                mealAndDiet.selectedDietTypeId
+            )
         }
+    }
 
+    fun saveMealAndDietTypeTemp(
+        mealType: String,
+        mealTypeId: Int,
+        dietType: String,
+        dietTypeId: Int
+    ) {
+        mealAndDiet = MealAndDietType(
+            mealType,
+            mealTypeId,
+            dietType,
+            dietTypeId
+        )
+    }
 
      fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
-         viewModelScope.launch {
-             readMealAndDietType.collect { value ->
-                 mealType = value.selectedMealType
-                 dietType = value.selectedDietType
-             }
+         queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+         queries[QUERY_API_KEY] = API_KEY
+         queries[QUERY_ADD_RECIPE_INFO] = "true"
+         queries[QUERY_FILL_INGREDIENTS] = "true"
+
+         if (this@RecipesViewModel::mealAndDiet.isInitialized) {
+             queries[QUERY_TYPE] = mealAndDiet.selectedMealType
+             queries[QUERY_DIET] = mealAndDiet.selectedDietType
+         } else {
+             queries[QUERY_TYPE] = DEFAULT_MEAL_TYPE
+             queries[QUERY_DIET] = DEFAULT_DIET_TYPE
          }
 
-        //        key                     value
-        queries[QUERY_NUMBER]            = DEFAULT_RECIPES_NUMBER  // num of recipes we want to get from request, possible from 1 to 100
-        queries[QUERY_API_KEY]           = API_KEY
-        queries[QUERY_TYPE]              = mealType
-        queries[QUERY_DIET]              = dietType
-        queries[QUERY_ADD_RECIPE_INFO]   = "true"
-        queries[QUERY_FILL_INGREDIENTS]  = "true"
-
-        return queries
+         return queries
     }
 
 }

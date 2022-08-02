@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-parcelize'
 
@@ -68,17 +68,17 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     // Room components
-    implementation "androidx.room:room-runtime:2.2.5"
-    kapt "androidx.room:room-compiler:2.2.5"
-    implementation "androidx.room:room-ktx:2.2.5"
-    androidTestImplementation "androidx.room:room-testing:2.2.5"
+    implementation "androidx.room:room-runtime:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
+    implementation "androidx.room:room-ktx:2.4.2"
+    androidTestImplementation "androidx.room:room-testing:2.4.2"
 
     // Data binding
-    kapt "com.android.databinding:compiler:3.2.0-alpha10"
-    kapt "androidx.databinding:databinding-common:4.2.2"
+//    kapt "com.android.databinding:compiler:3.2.0-alpha10"
+//    kapt "androidx.databinding:databinding-common:4.2.2"
 
     // DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // Recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
@@ -112,7 +112,6 @@ dependencies {
 
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation 'com.todkars:shimmer-recyclerview:0.4.0'
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
