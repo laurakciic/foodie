@@ -5,6 +5,13 @@ Foodie represents a Kotlin mobile application for browsing various recipes worki
 
 This document will be updated as the project progresses.
 
+## Structure 
+
+### Details activity (Overview, Ingredients, Instructions fragment)
+    - holds 3 fragments (tabs)
+    - not requesting data from API directly
+        - requesting data directly from API -> only from Recipes fragment
+        - we want to be able to send that result from API to Details activity 
 
 ## Tools & Technologies
 
