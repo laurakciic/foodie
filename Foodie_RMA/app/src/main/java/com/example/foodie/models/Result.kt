@@ -1,13 +1,17 @@
 package com.example.foodie.models
 
 
+import android.os.Parcelable
 import com.example.foodie.models.ExtendedIngredient
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 // Result class is binded with recipes_row_layout.xml (data binding)
 // = binded API data with recipes_row_layout.xml
 
 // info we will recieve from API:
+@Parcelize
 data class Result(
     @SerializedName("aggregateLikes")
     val aggregateLikes: Int,                    // converted to String so it can be displayed in TextView
@@ -16,7 +20,7 @@ data class Result(
     @SerializedName("dairyFree")
     val dairyFree: Boolean,
     @SerializedName("extendedIngredients")
-    val extendedIngredients: List<ExtendedIngredient>,
+    val extendedIngredients: @RawValue List<ExtendedIngredient>,
     @SerializedName("glutenFree")
     val glutenFree: Boolean,
     @SerializedName("id")
@@ -39,4 +43,4 @@ data class Result(
     val vegetarian: Boolean,
     @SerializedName("veryHealthy")
     val veryHealthy: Boolean
-)
+) : Parcelable

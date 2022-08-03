@@ -1,18 +1,39 @@
 package com.example.foodie.bindingAdapters
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
 import coil.load
+import com.example.foodie.models.Result
+import com.example.foodie.ui.fragments.recipes.RecipesFragmentDirections
 import foodie.R
+import java.lang.Exception
 
 // holds all the bindings (binding adaptors) for recipes_row_layout
 class RecipesRowBinding {
 
     // companion obj so it can access fun inside it elsewhere in project
     companion object {
+
+        @BindingAdapter("onRecipeClickListener")
+        @JvmStatic
+        fun onRecipeClickListener(recipesRowLayout: ConstraintLayout, result: Result) {
+            Log.d("onRecipeClickListener", "CALLED")
+            recipesRowLayout.setOnClickListener {
+                try {
+                    val action =
+                        RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
+                    recipesRowLayout.findNavController().navigate(action)
+                } catch (e: Exception) {
+                    Log.d("onRecipeClickListener", e.toString())
+                }
+            }
+        }
 
         // fun using Coil to display images inside recycler view
         // params: ImageView on which we're going to use this fun/binding adaptor, and image url
