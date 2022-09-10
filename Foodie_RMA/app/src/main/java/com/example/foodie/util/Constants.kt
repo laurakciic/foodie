@@ -4,10 +4,12 @@ import foodie.BuildConfig
 
 class Constants {
 
-    object Constants {
+    companion object Constants {
 
         const val BASE_URL = "https://api.spoonacular.com"
         const val API_KEY  = BuildConfig.API_KEY
+
+        const val RECIPE_RESULT_KEY = "recipeBundle"
 
         // API Query keys
         const val QUERY_SEARCH           = "query"

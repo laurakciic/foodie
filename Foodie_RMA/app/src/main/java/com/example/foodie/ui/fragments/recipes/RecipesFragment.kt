@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodie.viewModels.MainViewModel
 import com.example.foodie.adapters.RecipesAdapter
 import com.example.foodie.util.Constants.Constants.API_KEY
+import foodie.BuildConfig.API_KEY
+import com.example.foodie.util.Constants.Constants.RECIPE_RESULT_KEY
 import com.example.foodie.util.NetworkListener
 import com.example.foodie.util.NetworkResult
 import com.example.foodie.util.observeOnce

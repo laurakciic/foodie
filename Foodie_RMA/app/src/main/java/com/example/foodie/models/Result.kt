@@ -2,7 +2,6 @@ package com.example.foodie.models
 
 
 import android.os.Parcelable
-import com.example.foodie.models.ExtendedIngredient
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
@@ -30,7 +29,7 @@ data class Result(
     @SerializedName("readyInMinutes")
     val readyInMinutes: Int,                    // converted to String so it can be displayed in TextView
     @SerializedName("sourceName")
-    val sourceName: String,
+    val sourceName: String?,
     @SerializedName("sourceUrl")
     val sourceUrl: String,
     @SerializedName("summary")
