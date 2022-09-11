@@ -2,13 +2,11 @@ package com.example.foodie.viewModels
 
 import android.app.Application
 import android.widget.Toast
-import androidx.datastore.dataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodie.data.DataStoreRepository
 import com.example.foodie.data.MealAndDietType
-import com.example.foodie.util.Constants
 import com.example.foodie.util.Constants.Constants.DEFAULT_DIET_TYPE
 import com.example.foodie.util.Constants.Constants.DEFAULT_MEAL_TYPE
 import com.example.foodie.util.Constants.Constants.DEFAULT_RECIPES_NUMBER
@@ -22,10 +20,7 @@ import com.example.foodie.util.Constants.Constants.QUERY_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import foodie.BuildConfig.API_KEY
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import javax.inject.Inject
 
 // injected DataStoreRepository inside RecipesViewModel
@@ -36,9 +31,6 @@ class RecipesViewModel @Inject constructor(
     ): AndroidViewModel(application) {
 
     private lateinit var mealAndDiet: MealAndDietType
-
-    private var mealType = DEFAULT_MEAL_TYPE    // when applyQuery runs, their value will change
-    private var dietType = DEFAULT_DIET_TYPE
 
     var networkStatus = false
     var backOnline = false
@@ -61,7 +53,7 @@ class RecipesViewModel @Inject constructor(
         }
     }
 
-    fun saveBackOnline(backOnline: Boolean) =
+    private fun saveBackOnline(backOnline: Boolean) =
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveBackOnline((backOnline))
         }
