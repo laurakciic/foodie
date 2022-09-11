@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import com.example.foodie.data.database.RecipesEntity
+import com.example.foodie.data.database.entities.RecipesEntity
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.util.NetworkResult
 

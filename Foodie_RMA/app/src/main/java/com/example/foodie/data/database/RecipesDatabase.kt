@@ -3,6 +3,7 @@ package com.example.foodie.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.foodie.data.database.entities.RecipesEntity
 
 @Database(
     entities = [RecipesEntity::class],

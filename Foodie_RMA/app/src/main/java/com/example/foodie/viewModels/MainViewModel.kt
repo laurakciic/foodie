@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Parcelable
 import androidx.lifecycle.*
 import com.example.foodie.data.Repository
-import com.example.foodie.data.database.RecipesEntity
+import com.example.foodie.data.database.entities.RecipesEntity
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
