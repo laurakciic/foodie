@@ -14,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.lang.Exception
 import javax.inject.Inject
 
 // should extend ViewModel but since we are going to need an application reference in this view model
@@ -103,7 +102,7 @@ class MainViewModel @Inject constructor(
 
     // handleFoodRecipesResponse takes response from API (which we passed from above try block), handles and parses it
 
-    private fun handleFoodRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe>? {
+    private fun handleFoodRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe> {
         when {
             // sometimes it takes long for API to response to our req
             response.message().toString().contains("timeout") -> {

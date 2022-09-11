@@ -13,6 +13,7 @@ import com.example.foodie.models.Result
 import com.example.foodie.ui.fragments.recipes.RecipesFragmentDirections
 import foodie.R
 import org.jsoup.Jsoup
+import java.lang.Exception
 
 // holds all the bindings (binding adaptors) for recipes_row_layout
 class RecipesRowBinding {
@@ -22,13 +23,13 @@ class RecipesRowBinding {
 
         @BindingAdapter("onRecipeClickListener")
         @JvmStatic
-        fun onRecipeClickListener(recipesRowLayout: ConstraintLayout, result: Result) {
+        fun onRecipeClickListener(recipeRowLayout: ConstraintLayout, result: Result) {
             Log.d("onRecipeClickListener", "CALLED")
-            recipesRowLayout.setOnClickListener {
+            recipeRowLayout.setOnClickListener {
                 try {
                     val action =
                         RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
-                    recipesRowLayout.findNavController().navigate(action)
+                    recipeRowLayout.findNavController().navigate(action)
                 } catch (e: Exception) {
                     Log.d("onRecipeClickListener", e.toString())
                 }
@@ -55,7 +56,7 @@ class RecipesRowBinding {
         }
 
         // convert int value of number of minutes to string
-        // same princip as above
+        // same principal as above
         @BindingAdapter("setNumberOfMinutes")
         @JvmStatic
         fun setNumberOfMinutes(textView: TextView, minutes: Int){

@@ -12,7 +12,6 @@ import com.example.foodie.ui.fragments.ingredients.IngredientsFragment
 import com.example.foodie.ui.fragments.instructions.InstructionsFragment
 import com.example.foodie.ui.fragments.overview.OverviewFragment
 import com.example.foodie.util.Constants.Constants.RECIPE_RESULT_KEY
-import foodie.BuildConfig.API_KEY
 import com.example.foodie.viewModels.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +30,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_details)
+        //setContentView(R.layout.activity_details)
 
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)

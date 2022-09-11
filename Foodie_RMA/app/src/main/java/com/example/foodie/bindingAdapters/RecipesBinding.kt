@@ -3,6 +3,7 @@ package com.example.foodie.bindingAdapters
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.example.foodie.data.database.RecipesEntity
 import com.example.foodie.models.FoodRecipe
@@ -12,6 +13,25 @@ class RecipesBinding {
 
     companion object {
 
+        @BindingAdapter("readApiResponse","readDatabase",requireAll = true)
+        @JvmStatic
+        fun handleReadDataErrors(
+            view: View,
+            apiResponse: NetworkResult<FoodRecipe>?,
+            database: List<RecipesEntity>?
+        ){
+            when (view){
+                is ImageView ->{
+                    view.isVisible = apiResponse is NetworkResult.Error && database.isNullOrEmpty()
+                }
+                is TextView ->{
+                    view.isVisible = apiResponse is NetworkResult.Error && database.isNullOrEmpty()
+                    view.text = apiResponse?.message.toString()
+                }
+            }
+        }
+
+        /*
         // custom binding adaptor for imageView
         // 2 attributes bc 2 vars in fun are needed
         @BindingAdapter("readApiResponse", "readDatabase", requireAll = true)
@@ -45,7 +65,7 @@ class RecipesBinding {
             } else if (apiResponse is NetworkResult.Success) {
                 textView.visibility = View.INVISIBLE
             }
-        }
+        } */
 
     }
 

@@ -4,8 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 
+@ExperimentalCoroutinesApi
 class NetworkListener: ConnectivityManager.NetworkCallback() {
 
     private val isNetworkAvailable = MutableStateFlow(false)    // funs will change values of this MutableStateFlow depending on whether we get or lose conn

@@ -13,11 +13,10 @@ import com.example.foodie.util.Constants.Constants.PREFERENCES_MEAL_TYPE
 import com.example.foodie.util.Constants.Constants.PREFERENCES_MEAL_TYPE_ID
 import com.example.foodie.util.Constants.Constants.PREFERENCES_NAME
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import org.jsoup.select.Evaluator
 import java.io.IOException
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ private val Context.dataStore by preferencesDataStore(PREFERENCES_NAME)
 
 // main diff between DataStore & Shared Preferences is that DataStore is running on a background thread
 // injected ApplicationContext
-@ActivityRetainedScoped  // Hilt lib annotation, because this class will be used inside RecipesViewModel
+@ViewModelScoped  // Hilt lib annotation, because this class will be used inside RecipesViewModel
 class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object PreferenceKeys {
