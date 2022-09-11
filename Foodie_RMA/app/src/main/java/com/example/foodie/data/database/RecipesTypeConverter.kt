@@ -2,9 +2,9 @@ package com.example.foodie.data.database
 
 import androidx.room.TypeConverter
 import com.example.foodie.models.FoodRecipe
+import com.example.foodie.models.Result
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.example.foodie.models.Result
 
 // because we cannot store complex objects in DB directly
 class RecipesTypeConverter {
@@ -22,6 +22,7 @@ class RecipesTypeConverter {
         return gson.fromJson(data, listType)
     }
 
+    // converting result to string - favorites
     @TypeConverter
     fun resultToString(result: Result): String {
         return gson.toJson(result)
