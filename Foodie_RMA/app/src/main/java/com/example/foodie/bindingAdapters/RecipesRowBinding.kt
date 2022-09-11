@@ -12,7 +12,7 @@ import coil.load
 import com.example.foodie.models.Result
 import com.example.foodie.ui.fragments.recipes.RecipesFragmentDirections
 import foodie.R
-import java.lang.Exception
+import org.jsoup.Jsoup
 
 // holds all the bindings (binding adaptors) for recipes_row_layout
 class RecipesRowBinding {
@@ -86,6 +86,15 @@ class RecipesRowBinding {
                         )
                     }
                 }
+            }
+        }
+
+        @BindingAdapter("parseHtml")
+        @JvmStatic
+        fun parseHtml(textView: TextView, description: String?) {
+            if(description != null) {
+                val desc = Jsoup.parse(description).text()
+                textView.text = desc
             }
         }
     }

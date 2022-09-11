@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import coil.load
+import com.example.foodie.bindingAdapters.RecipesRowBinding
 import com.example.foodie.models.Result
 import com.example.foodie.util.Constants.Constants.RECIPE_RESULT_KEY
 import foodie.R
@@ -33,7 +34,7 @@ class OverviewFragment : Fragment() {
         binding.titleTextView.text = myBundle.title
         binding.likesTextView.text = myBundle.aggregateLikes.toString()
         binding.timeTextView.text = myBundle.readyInMinutes.toString()
-        //RecipesRowBinding.parseHtml(binding.summaryTextView, myBundle.summary)
+        RecipesRowBinding.parseHtml(binding.summaryTextView, myBundle.summary)
 
         updateColors(myBundle.vegetarian, binding.vegetarianTextView, binding.vegetarianImageView)
         updateColors(myBundle.vegan, binding.veganTextView, binding.veganImageView)
