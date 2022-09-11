@@ -1,14 +1,12 @@
 package com.example.foodie.util
 
-import foodie.BuildConfig
-
 class Constants {
 
     companion object Constants {
 
         const val BASE_URL = "https://api.spoonacular.com"
         const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
-        const val API_KEY  = BuildConfig.API_KEY
+        const val API_KEY  = "cfcc96c416d84315b1c5a6ebcbe9f93d"
 
         const val RECIPE_RESULT_KEY = "recipeBundle"
 

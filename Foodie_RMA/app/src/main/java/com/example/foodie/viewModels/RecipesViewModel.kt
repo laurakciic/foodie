@@ -18,7 +18,8 @@ import com.example.foodie.util.Constants.Constants.QUERY_NUMBER
 import com.example.foodie.util.Constants.Constants.QUERY_SEARCH
 import com.example.foodie.util.Constants.Constants.QUERY_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import foodie.BuildConfig.API_KEY
+//import foodie.BuildConfig.API_KEY
+import com.example.foodie.util.Constants.Constants.API_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
