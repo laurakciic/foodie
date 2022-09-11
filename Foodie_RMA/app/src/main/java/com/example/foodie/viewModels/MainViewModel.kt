@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Parcelable
 import androidx.lifecycle.*
 import com.example.foodie.data.Repository
+import com.example.foodie.data.database.entities.FavoritesEntity
 import com.example.foodie.data.database.entities.RecipesEntity
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.util.NetworkResult
@@ -38,11 +39,27 @@ class MainViewModel @Inject constructor(
 
     // called readDatabase() fun from Dao interface
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()   // Flow -> LiveData
+    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
 
     // inserting data in DB
     private fun insertRecipes(recipesEntity: RecipesEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertRecipes(recipesEntity)           // calling insertRecipes fun from localDataSource and storing data in DB
+        }
+
+    fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavoriteRecipes(favoritesEntity)
+        }
+
+    fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavoriteRecipe(favoritesEntity)
+        }
+
+    fun deleteAllFavoriteRecipes() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavoriteRecipes()
         }
 
     /** RETROFIT */
