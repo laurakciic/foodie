@@ -37,7 +37,7 @@ class MainViewModel @Inject constructor(
     /** ROOM DATABASE */
 
     // called readDatabase() fun from Dao interface
-    val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readDatabase().asLiveData()   // Flow -> LiveData
+    val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()   // Flow -> LiveData
 
     // inserting data in DB
     private fun insertRecipes(recipesEntity: RecipesEntity) =
