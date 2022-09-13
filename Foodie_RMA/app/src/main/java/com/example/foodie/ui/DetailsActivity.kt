@@ -9,18 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.navArgs
 import com.example.foodie.adapters.PagerAdapter
+import com.example.foodie.data.database.entities.FavoritesEntity
 import com.example.foodie.ui.fragments.ingredients.IngredientsFragment
 import com.example.foodie.ui.fragments.instructions.InstructionsFragment
 import com.example.foodie.ui.fragments.overview.OverviewFragment
 import com.example.foodie.util.Constants.Constants.RECIPE_RESULT_KEY
 import com.example.foodie.viewModels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import foodie.R
 import foodie.databinding.ActivityDetailsBinding
 
 
-@AndroidEntryPoint
+@AndroidEntryPoint  // bc MainViewModel is used inside & it is using @Inject
 class DetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsBinding
@@ -78,7 +80,29 @@ class DetailsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == android.R.id.home) {
             finish()
+        } else if(item.itemId == R.id.save_to_favorites_menu) {     // whenever save_to_fav item is selected, saveToFav() will be called
+            saveToFavorites(item)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveToFavorites(item: MenuItem) {
+        val favoritesEntity = FavoritesEntity(0, args.result)   // id will be auto-generated anyway, result is selected recipe obtained through args
+        mainViewModel.insertFavoriteRecipe(favoritesEntity)         // insert selected item inside favoritesEntity/favorites recipe table
+        changeMenuItemColor(item, R.color.yellow)
+        showSnackBar("Recipe saved.")
+    }
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(
+            binding.detailsLayout,                  // view - ConstraintLayout from ActivityDetailsBinding
+            message,
+            Snackbar.LENGTH_SHORT
+        ).setAction("Okay") {}
+            .show()
+    }
+
+    private fun changeMenuItemColor(item: MenuItem, color: Int) {
+        item.icon.setTint(ContextCompat.getColor(this, color))
     }
 }
