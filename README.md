@@ -170,4 +170,7 @@ to
 
 in [activity_main.xml](https://github.com/laurakciic/foodie/blob/master/Foodie_RMA/app/src/main/res/layout/activity_main.xml), which I did.
 
-
+Converting xml to data binding layout
+in xml:
+1. alt+enter on ConstraintLayout and select convert to data binding layout
+2. inside generated <data> element tag specify new variable with name and type
