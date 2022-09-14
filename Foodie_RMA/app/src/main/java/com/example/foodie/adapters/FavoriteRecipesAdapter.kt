@@ -2,9 +2,11 @@ package com.example.foodie.adapters
 
 import android.view.*
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie.data.database.entities.FavoritesEntity
+import com.example.foodie.ui.fragments.favourites.FavouriteRecipesFragmentDirections
 import com.example.foodie.util.RecipesDiffUtil
 import com.example.foodie.viewModels.MainViewModel
 import foodie.databinding.FavoriteRecipesRowLayoutBinding
@@ -14,6 +16,12 @@ class FavoriteRecipesAdapter(
     private val mainViewModel: MainViewModel
 ) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
 
+    private var multiSelection = false
+
+
+    private lateinit var rootView: View
+
+    private var myViewHolders = arrayListOf<MyViewHolder>()
     private var favoriteRecipes = emptyList<FavoritesEntity>() // empty list of type FavoritesEntity
 
     class MyViewHolder(val binding: FavoriteRecipesRowLayoutBinding) :
@@ -38,9 +46,37 @@ class FavoriteRecipesAdapter(
         return MyViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: FavoriteRecipesAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        myViewHolders.add(holder)
+        rootView = holder.itemView.rootView
+
         val currentRecipe = favoriteRecipes[position]   // get each & every row from RecyclerView, storing it dynamically in currentRecipe val
         holder.bind(currentRecipe)
+
+        saveItemStateOnScroll(currentRecipe, holder)
+
+        /**
+         * Single Click Listener
+         * */
+        holder.binding.favoriteRecipesRowLayout.setOnClickListener {
+            if (multiSelection) {
+                applySelection(holder, currentRecipe)
+            } else {
+                val action =                           // action added in nav.xml file
+                    FavouriteRecipesFragmentDirections.actionFavouriteRecipesFragmentToDetailsActivity(
+                        currentRecipe.result
+                    )
+                holder.itemView.findNavController().navigate(action)    // navigate to this same action
+            }
+        }
+    }
+
+    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder) {
+
+    }
+
+    private fun applySelection(holder: MyViewHolder, currentRecipe: FavoritesEntity) {
+
     }
 
     override fun getItemCount(): Int {
