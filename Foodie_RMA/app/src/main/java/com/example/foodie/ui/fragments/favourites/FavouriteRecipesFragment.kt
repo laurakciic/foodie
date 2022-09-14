@@ -20,7 +20,7 @@ class FavouriteRecipesFragment : Fragment() {
     private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(), mainViewModel) }
 
     private var _binding: FragmentFavouriteRecipesBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding!!                             // read only variable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +34,6 @@ class FavouriteRecipesFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        mainViewModel.readFavoriteRecipes.observe(viewLifecycleOwner) { favoritesEntity ->
-            mAdapter.setData(favoritesEntity)
-        }
-
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
 
         return binding.root
@@ -46,5 +42,10 @@ class FavouriteRecipesFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()          // whenever we destroy fragment, we set binding to null
+        _binding = null
     }
 }
