@@ -24,6 +24,7 @@ class FavoriteRecipesAdapter(
 
     private lateinit var rootView: View
 
+    private var selectedRecipes = arrayListOf<FavoritesEntity>()
     private var myViewHolders = arrayListOf<MyViewHolder>()
     private var favoriteRecipes = emptyList<FavoritesEntity>() // empty list of type FavoritesEntity
 
@@ -90,11 +91,26 @@ class FavoriteRecipesAdapter(
         }
     }
 
-    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder) {
-
+    // using selectedRecipes to add/remove recipes from the list
+    private fun applySelection(holder: MyViewHolder, currentRecipe: FavoritesEntity) {
+        if (selectedRecipes.contains(currentRecipe)) {
+            selectedRecipes.remove(currentRecipe)
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+        } else {
+            selectedRecipes.add(currentRecipe)
+            changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+        }
     }
 
-    private fun applySelection(holder: MyViewHolder, currentRecipe: FavoritesEntity) {
+    private fun changeRecipeStyle(holder: MyViewHolder, backgroundColor: Int, strokeColor: Int) {
+        holder.binding.favoriteRecipesRowLayout.setBackgroundColor(             // holder gets the reference of binding
+            ContextCompat.getColor(requireActivity, backgroundColor)
+        )
+        holder.binding.favoriteRowCardView.strokeColor =
+            ContextCompat.getColor(requireActivity, strokeColor)
+    }
+
+    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder) {
 
     }
 
@@ -118,6 +134,11 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onDestroyActionMode(actionMode: ActionMode?) {
+        myViewHolders.forEach { holder ->
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)     // for each holder call changeRecipeStyle
+        }
+        multiSelection = false
+        selectedRecipes.clear()                     // clear array when closing action mode
         applyStatusBarColor(R.color.statusBarColor)
     }
 
