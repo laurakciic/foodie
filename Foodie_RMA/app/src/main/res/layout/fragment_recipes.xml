@@ -58,35 +58,35 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:clickable="true"
-            app:tint="@color/white"
+            android:focusable="true"
             android:src="@drawable/ic_restaurant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:focusable="true" />
+            app:tint="@color/white" />
 
         <!-- alpha = opacity -->
         <!-- recipesResponse <- Retrofit, readRecipes <- ROOM -->
         <ImageView
             android:id="@+id/error_imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             readApiResponse="@{mainViewModel.recipesResponse}"
             readDatabase="@{mainViewModel.readRecipes}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:alpha="0.5"
             android:src="@drawable/ic_sad"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/shimmerFrameLayout"
-            app:layout_constraintTop_toTopOf="@+id/shimmerFrameLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recyclerView"
             app:layout_constraintVertical_bias="0.37" />
 
         <TextView
             android:id="@+id/error_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             readApiResponse="@{mainViewModel.recipesResponse}"
             readDatabase="@{mainViewModel.readRecipes}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0.5"
             android:textSize="18sp"
