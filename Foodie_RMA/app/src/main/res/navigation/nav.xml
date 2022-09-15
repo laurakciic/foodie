@@ -34,7 +34,7 @@
         android:id="@+id/cookingTipFragment"
         android:name="com.example.foodie.ui.fragments.tips.CookingTipFragment"
         android:label="Cooking Tip"
-        tools:layout="@layout/fragment_cooking_tip" />
+        tools:layout="@layout/fragment_food_fact" />
     <dialog
         android:id="@+id/recipesBottomSheet"
         android:name="com.example.foodie.ui.fragments.recipes.bottomSheet.RecipesBottomSheet"

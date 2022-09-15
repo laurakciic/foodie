@@ -10,6 +10,6 @@
         android:icon="@drawable/ic_star"/>
 
     <item android:id="@+id/cookingTipFragment"
-        android:title="@string/cooking_tip_fragment"
+        android:title="@string/food_fact_fragment"
         android:icon="@drawable/ic_cooking_tip"/>
 </menu>
