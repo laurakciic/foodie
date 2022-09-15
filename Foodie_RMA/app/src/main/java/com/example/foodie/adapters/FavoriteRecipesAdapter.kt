@@ -9,15 +9,17 @@ import com.example.foodie.data.database.entities.FavoritesEntity
 import com.example.foodie.ui.fragments.favourites.FavouriteRecipesFragmentDirections
 import com.example.foodie.util.RecipesDiffUtil
 import com.example.foodie.viewModels.MainViewModel
+import foodie.R
 import foodie.databinding.FavoriteRecipesRowLayoutBinding
 
 class FavoriteRecipesAdapter(
     private val requireActivity: FragmentActivity,
     private val mainViewModel: MainViewModel
-) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
+) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {      // also inherits ActionMode.Callback which is an interface needed to show contextual action mode
 
     private var multiSelection = false
 
+    private lateinit var mActionMode: ActionMode
 
     private lateinit var rootView: View
 
@@ -69,6 +71,22 @@ class FavoriteRecipesAdapter(
                 holder.itemView.findNavController().navigate(action)    // navigate to this same action
             }
         }
+
+        /**
+         * Long Click Listener
+         * */
+        holder.binding.favoriteRecipesRowLayout.setOnLongClickListener {
+            if (!multiSelection) {
+                multiSelection = true
+                requireActivity.startActionMode(this)   // start contextual action mode, this refers to this FavRecAdap class which implements callback
+                applySelection(holder, currentRecipe)
+                true
+            } else {
+                applySelection(holder, currentRecipe)
+                true
+            }
+
+        }
     }
 
     private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder) {
@@ -91,20 +109,21 @@ class FavoriteRecipesAdapter(
         diffUtilResult.dispatchUpdatesTo(this)
     }
 
-    override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-        TODO("Not yet implemented")
+    override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+        actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
+        mActionMode = actionMode!!
+        return true
     }
 
-    override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-        TODO("Not yet implemented")
+    override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+        return true
     }
 
-    override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
-        TODO("Not yet implemented")
+    override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
+        return true
     }
 
-    override fun onDestroyActionMode(p0: ActionMode?) {
-        TODO("Not yet implemented")
+    override fun onDestroyActionMode(actionMode: ActionMode?) {
     }
 }
 

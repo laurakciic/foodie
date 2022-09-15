@@ -17,7 +17,7 @@ import foodie.databinding.FragmentFavouriteRecipesBinding
 class FavouriteRecipesFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by viewModels()
-    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(), mainViewModel) }
+    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(), mainViewModel) }   // requireActivity is bc of setOnLongClickListener
 
     private var _binding: FragmentFavouriteRecipesBinding? = null
     private val binding get() = _binding!!                             // read only variable
