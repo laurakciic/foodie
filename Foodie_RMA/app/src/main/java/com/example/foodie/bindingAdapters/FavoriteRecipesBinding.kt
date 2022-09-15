@@ -11,6 +11,7 @@ import com.example.foodie.data.database.entities.FavoritesEntity
 class FavoriteRecipesBinding {
     companion object {
 
+        // setting visibility of views & for RecyclerView setting data from FavoriteRecipesAdapter
         // check if recipes table is empty
         // if it is: show hidden views, set recyclerView visibility to invisible
         // setVisibility refers to favoritesEntity, setData refers to mAdapter

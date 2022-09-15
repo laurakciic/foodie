@@ -14,17 +14,18 @@ import com.google.android.material.snackbar.Snackbar
 import foodie.R
 import foodie.databinding.FavoriteRecipesRowLayoutBinding
 
+// simple RecyclerView adapter
 class FavoriteRecipesAdapter(
     private val requireActivity: FragmentActivity,
     private val mainViewModel: MainViewModel
-) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {      // also inherits ActionMode.Callback which is an interface needed to show contextual action mode
+) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {      // also inherits ActionMode.Callback which is an interface needed to show contextual action mode (short & long click)
 
     private var multiSelection = false
 
     private lateinit var mActionMode: ActionMode
     private lateinit var rootView: View
 
-    private var selectedRecipes = arrayListOf<FavoritesEntity>()
+    private var selectedRecipes = arrayListOf<FavoritesEntity>()  // array list which contains FavoritesEntity
     private var myViewHolders = arrayListOf<MyViewHolder>()
     private var favoriteRecipes = emptyList<FavoritesEntity>() // empty list of type FavoritesEntity
 
@@ -65,9 +66,9 @@ class FavoriteRecipesAdapter(
         holder.binding.favoriteRecipesRowLayout.setOnClickListener {
             if (multiSelection) {
                 applySelection(holder, currentRecipe)
-            } else {
+            } else {                                   // only if multiSelection is false - TRUE only when long pressed on recipes
                 val action =                           // action added in nav.xml file
-                    FavouriteRecipesFragmentDirections.actionFavouriteRecipesFragmentToDetailsActivity(
+                    FavouriteRecipesFragmentDirections.actionFavouriteRecipesFragmentToDetailsActivity(  // navigating from favoriteRecipesFragment to DetailsActivity
                         currentRecipe.result
                     )
                 holder.itemView.findNavController().navigate(action)    // navigate to this same action
@@ -78,7 +79,7 @@ class FavoriteRecipesAdapter(
          * Long Click Listener
          * */
         holder.binding.favoriteRecipesRowLayout.setOnLongClickListener {
-            if (!multiSelection) {
+            if (!multiSelection) {      // multiSelection is false by default
                 multiSelection = true
                 requireActivity.startActionMode(this)   // start contextual action mode, this refers to this FavRecAdap class which implements callback
                 applySelection(holder, currentRecipe)
@@ -94,8 +95,8 @@ class FavoriteRecipesAdapter(
     // using selectedRecipes to add/remove recipes from the list
     private fun applySelection(holder: MyViewHolder, currentRecipe: FavoritesEntity) {
         if (selectedRecipes.contains(currentRecipe)) {
-            selectedRecipes.remove(currentRecipe)
-            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+            selectedRecipes.remove(currentRecipe)       // when we deselect recipe from selected recipes
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)     // styling rows
             applyActionModeTitle()
         } else {
             selectedRecipes.add(currentRecipe)
@@ -112,9 +113,9 @@ class FavoriteRecipesAdapter(
             ContextCompat.getColor(requireActivity, strokeColor)
     }
 
-    private fun applyActionModeTitle() {
+    private fun applyActionModeTitle() {    // changing action mode title, or closing action mode if we deselect every recipe we selected
         when (selectedRecipes.size) {
-            0 -> {                     // when there are no selected recipes
+            0 -> {                     // when there are no selected recipes (deselected every recipe that was previously selected)
                 mActionMode.finish()   // close action mode (status & nav bars)
                 multiSelection = false
             }
@@ -146,16 +147,17 @@ class FavoriteRecipesAdapter(
         return true
     }
 
+    // handling logic for MenuItem
     override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
-        if (menu?.itemId == R.id.delete_favorite_recipe_menu) {
+        if (menu?.itemId == R.id.delete_favorite_recipe_menu) {     // delete icon pressed -> all selected recipes will be deleted (looping through each)
             selectedRecipes.forEach {
                 mainViewModel.deleteFavoriteRecipe(it)      // it - refers to selectedRecipes, favoritesEntity, favoriteRecipes array list contains those favorites entities
             }
             showSnackBar("${selectedRecipes.size} Recipe/s removed.")
 
             multiSelection = false
-            selectedRecipes.clear()
-            actionMode?.finish()
+            selectedRecipes.clear()     // clearing array list
+            actionMode?.finish()        // closing action mode
         }
         return true
     }

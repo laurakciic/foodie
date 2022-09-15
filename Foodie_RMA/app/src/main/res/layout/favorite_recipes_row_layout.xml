@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <!-- used to display data to views -->
         <variable
             name="favoritesEntity"
             type="com.example.foodie.data.database.entities.FavoritesEntity" />
@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
-                <!-- usage of binding adaptors -->
+                <!-- reusage of same binding adaptors which we have used in FavoriteRecipesFragment -->
                 <ImageView
                     android:id="@+id/favorite_recipe_imageView"
                     loadImageFromUrl="@{favoritesEntity.result.image}"
