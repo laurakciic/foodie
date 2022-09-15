@@ -1,6 +1,7 @@
 package com.example.foodie.data
 
 import com.example.foodie.data.network.FoodRecipesAPI
+import com.example.foodie.models.FoodFact
 import com.example.foodie.models.FoodRecipe
 import retrofit2.Response
 import javax.inject.Inject
@@ -27,5 +28,8 @@ class RemoteDataSource @Inject constructor(         // by annotating inject cons
         return foodRecipesAPI.searchRecipes(searchQuery)
     }
 
+    suspend fun getFoodFact(apiKey: String): Response<FoodFact> {
+        return foodRecipesAPI.getFoodFact(apiKey)
+    }
 }
 
