@@ -48,6 +48,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // initializing view model via ViewModelProvider (in FoodFactFragment I used the delegate way)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
     }

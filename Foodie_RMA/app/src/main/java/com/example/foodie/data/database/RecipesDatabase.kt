@@ -9,7 +9,7 @@ import com.example.foodie.data.database.entities.RecipesEntity
 
 @Database(
     entities = [RecipesEntity::class, FavoritesEntity::class, FoodFactEntity::class],
-    version = 2,                        // needs to be incremented whenever changing schema
+    version = 1,                        // needs to be incremented whenever changing schema
     exportSchema = false
 )
 @TypeConverters(RecipesTypeConverter::class)
