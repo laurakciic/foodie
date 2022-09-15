@@ -10,6 +10,7 @@ import com.example.foodie.data.database.entities.FavoritesEntity
 import com.example.foodie.ui.fragments.favourites.FavouriteRecipesFragmentDirections
 import com.example.foodie.util.RecipesDiffUtil
 import com.example.foodie.viewModels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import foodie.R
 import foodie.databinding.FavoriteRecipesRowLayoutBinding
 
@@ -146,6 +147,16 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
+        if (menu?.itemId == R.id.delete_favorite_recipe_menu) {
+            selectedRecipes.forEach {
+                mainViewModel.deleteFavoriteRecipe(it)      // it - refers to selectedRecipes, favoritesEntity, favoriteRecipes array list contains those favorites entities
+            }
+            showSnackBar("${selectedRecipes.size} Recipe/s removed.")
+
+            multiSelection = false
+            selectedRecipes.clear()
+            actionMode?.finish()
+        }
         return true
     }
 
@@ -169,6 +180,15 @@ class FavoriteRecipesAdapter(
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
         favoriteRecipes = newFavoriteRecipes
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(
+            rootView,
+            message,
+            Snackbar.LENGTH_SHORT       // duration
+        ).setAction("Okay") {}
+            .show()
     }
 }
 
