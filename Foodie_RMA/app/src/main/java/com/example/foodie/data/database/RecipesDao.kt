@@ -2,6 +2,7 @@ package com.example.foodie.data.database
 
 import androidx.room.*
 import com.example.foodie.data.database.entities.FavoritesEntity
+import com.example.foodie.data.database.entities.FoodFactEntity
 import com.example.foodie.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +16,9 @@ interface RecipesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFoodFact(foodFactEntity: FoodFactEntity)
+
     // return type is Flow, List of RecipesEntity wrapped inside Flow
     // Flow in RecipesDao, Repository, in ViewModel converting Flow to LiveData
     @Query("SELECT * FROM recipes_table ORDER BY id ASC")
@@ -22,6 +26,9 @@ interface RecipesDao {
 
     @Query("SELECT * FROM favorite_recipes_table ORDER BY id ASC")
     fun readFavoriteRecipes(): Flow<List<FavoritesEntity>>
+
+    @Query("SELECT * FROM food_fact_table ORDER BY id ASC")
+    fun readFoodFact(): Flow<List<FoodFactEntity>>
 
     @Delete
     suspend fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity)

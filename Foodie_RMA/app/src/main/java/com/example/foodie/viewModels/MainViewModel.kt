@@ -8,6 +8,7 @@ import android.os.Parcelable
 import androidx.lifecycle.*
 import com.example.foodie.data.Repository
 import com.example.foodie.data.database.entities.FavoritesEntity
+import com.example.foodie.data.database.entities.FoodFactEntity
 import com.example.foodie.data.database.entities.RecipesEntity
 import com.example.foodie.models.FoodFact
 import com.example.foodie.models.FoodRecipe
@@ -41,6 +42,7 @@ class MainViewModel @Inject constructor(
     // called readDatabase() fun from Dao interface
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()   // Flow -> LiveData
     val readFavoriteRecipes: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
+    val readFoodFact: LiveData<List<FoodFactEntity>> = repository.local.readFoodFact().asLiveData()
 
     // inserting data in DB
     private fun insertRecipes(recipesEntity: RecipesEntity) =
@@ -51,6 +53,11 @@ class MainViewModel @Inject constructor(
     fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertFavoriteRecipes(favoritesEntity)
+        }
+
+    private fun insertFoodFact(foodFactEntity: FoodFactEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFoodFact(foodFactEntity)
         }
 
     fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) =
@@ -125,7 +132,13 @@ class MainViewModel @Inject constructor(
         if (hasInternetConnection()) {      // then get req whose response will be stored in recipeResponse MutableLiveData obj
             try {                           // repository (injected in MainViewModel) calls remote (to get the access of RemoteDataSource) which then calls getRecipes (created in RemoteDataSource)
                 val response = repository.remote.getFoodFact(apiKey)    // passing map of queries (from param)
-                foodFactResponse.value = handleFoodFactResponse(response)     // reusing handleFoodRecipesReponse fun from above, because response will be food recipe model class aswell
+                foodFactResponse.value = handleFoodFactResponse(response)     // reusing handleFoodRecipesResponse fun from above, because response will be food recipe model class aswell
+
+                // whenever we get data from API & that data is not null, then call offlineCacheFoodFact and cache it
+                val foodFact = foodFactResponse.value!!.data    // get foodFact actual data, value
+                if(foodFact != null){
+                    offlineCacheFoodFact(foodFact)
+                }
             } catch (e: Exception) {
                 foodFactResponse.value = NetworkResult.Error("Recipes not found.")
             }
@@ -137,6 +150,11 @@ class MainViewModel @Inject constructor(
     private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
         val recipesEntity = RecipesEntity(foodRecipe)       // to insert data to DB foodRecipe needs to be converted into recipesEntity
         insertRecipes(recipesEntity)
+    }
+
+    private fun offlineCacheFoodFact(foodFact: FoodFact) {
+        val foodFactEntity = FoodFactEntity(foodFact)       // to insert data to DB foodRecipe needs to be converted into recipesEntity
+        insertFoodFact(foodFactEntity)
     }
 
     // handleFoodRecipesResponse takes response from API (which we passed from above try block), handles and parses it

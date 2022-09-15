@@ -4,11 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.foodie.data.database.entities.FavoritesEntity
+import com.example.foodie.data.database.entities.FoodFactEntity
 import com.example.foodie.data.database.entities.RecipesEntity
 
 @Database(
-    entities = [RecipesEntity::class, FavoritesEntity::class],
-    version = 1,                        // needs to be incremented whenever changing schema
+    entities = [RecipesEntity::class, FavoritesEntity::class, FoodFactEntity::class],
+    version = 2,                        // needs to be incremented whenever changing schema
     exportSchema = false
 )
 @TypeConverters(RecipesTypeConverter::class)

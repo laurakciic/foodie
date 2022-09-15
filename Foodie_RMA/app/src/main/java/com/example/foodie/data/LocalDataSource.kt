@@ -2,6 +2,7 @@ package com.example.foodie.data
 
 import com.example.foodie.data.database.RecipesDao
 import com.example.foodie.data.database.entities.FavoritesEntity
+import com.example.foodie.data.database.entities.FoodFactEntity
 import com.example.foodie.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -19,6 +20,10 @@ class LocalDataSource @Inject constructor(
         return recipesDao.readFavoriteRecipes()
     }
 
+    fun readFoodFact(): Flow<List<FoodFactEntity>> {
+        return recipesDao.readFoodFact()
+    }
+
     // inserting recipes into DB
     suspend fun insertRecipes(recipesEntity: RecipesEntity) {
         recipesDao.insertRecipes(recipesEntity)                     // calling insertRecipes fun from recipesDao
@@ -26,6 +31,10 @@ class LocalDataSource @Inject constructor(
 
     suspend fun insertFavoriteRecipes(favoritesEntity: FavoritesEntity) {
         recipesDao.insertFavoriteRecipe(favoritesEntity)
+    }
+
+    suspend fun insertFoodFact(foodFactEntity: FoodFactEntity) {
+        recipesDao.insertFoodFact(foodFactEntity)
     }
 
     suspend fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) {
