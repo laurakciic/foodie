@@ -1,10 +1,9 @@
 package com.example.foodie.ui.fragments.facts
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +12,7 @@ import com.example.foodie.util.Constants.Constants.API_KEY
 import com.example.foodie.util.NetworkResult
 import com.example.foodie.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import foodie.R
 import foodie.databinding.FragmentFoodFactBinding
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ class FoodFactFragment : Fragment() {
     private var _binding: FragmentFoodFactBinding? = null
     private val binding get() = _binding!!
 
-    private var foodFact = "No Food Fact Available"
+    private var foodFact = "No Food Fact"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +34,8 @@ class FoodFactFragment : Fragment() {
         _binding = FragmentFoodFactBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
+
+        setHasOptionsMenu(true)
 
         // requesting API data
         mainViewModel.getFoodFact(API_KEY)
@@ -64,6 +66,21 @@ class FoodFactFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.food_fact_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.share_food_fact_menu) {
+            val shareIntent = Intent().apply {
+                this.action = Intent.ACTION_SEND
+                this.putExtra(Intent.EXTRA_TEXT, foodFact)
+                this.type = "text/plain"
+            }
+            startActivity(shareIntent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun loadDataFromCache() {
         lifecycleScope.launch {
