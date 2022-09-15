@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import com.example.foodie.data.Repository
 import com.example.foodie.data.database.entities.FavoritesEntity
 import com.example.foodie.data.database.entities.RecipesEntity
+import com.example.foodie.models.FoodFact
 import com.example.foodie.models.FoodRecipe
 import com.example.foodie.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -68,6 +69,9 @@ class MainViewModel @Inject constructor(
 
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
     var searchedRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    var foodFactResponse: MutableLiveData<NetworkResult<FoodFact>> = MutableLiveData()
+
+    // viewModelScope runs func inside Kotlin coroutines
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries)
@@ -75,6 +79,10 @@ class MainViewModel @Inject constructor(
 
     fun searchRecipes(searchQuery: Map<String, String>) = viewModelScope.launch {
         searchRecipesSafeCall(searchQuery)
+    }
+
+    fun getFoodFact(apiKey: String) = viewModelScope.launch {
+        getFoodFactSafeCall(apiKey)
     }
 
     // suspend because getRecipes is a suspend fun
@@ -112,6 +120,20 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private suspend fun getFoodFactSafeCall(apiKey: String) {
+        foodFactResponse.value = NetworkResult.Loading()     // every time we call the fun, it will respond with loading state, when we get actual data from API, we're going to response with either success or error
+        if (hasInternetConnection()) {      // then get req whose response will be stored in recipeResponse MutableLiveData obj
+            try {                           // repository (injected in MainViewModel) calls remote (to get the access of RemoteDataSource) which then calls getRecipes (created in RemoteDataSource)
+                val response = repository.remote.getFoodFact(apiKey)    // passing map of queries (from param)
+                foodFactResponse.value = handleFoodFactResponse(response)     // reusing handleFoodRecipesReponse fun from above, because response will be food recipe model class aswell
+            } catch (e: Exception) {
+                foodFactResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            foodFactResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
     private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
         val recipesEntity = RecipesEntity(foodRecipe)       // to insert data to DB foodRecipe needs to be converted into recipesEntity
         insertRecipes(recipesEntity)
@@ -138,6 +160,27 @@ class MainViewModel @Inject constructor(
             response.isSuccessful -> {
                 val foodRecipes = response.body()
                 return NetworkResult.Success(foodRecipes!!)
+            }
+            else -> {
+                return NetworkResult.Error(response.message())    // as param we pass error message from API
+            }
+        }
+    }
+
+    private fun handleFoodFactResponse(response: Response<FoodFact>): NetworkResult<FoodFact> {
+        when {
+            // sometimes it takes long for API to response to our req
+            response.message().toString().contains("timeout") -> {
+                return NetworkResult.Error("Timeout")
+            }
+
+            response.code() == 402 -> {
+                return NetworkResult.Error("API Key Limited.")
+            }
+
+            response.isSuccessful -> {
+                val foodFact = response.body()
+                return NetworkResult.Success(foodFact!!)
             }
             else -> {
                 return NetworkResult.Error(response.message())    // as param we pass error message from API
