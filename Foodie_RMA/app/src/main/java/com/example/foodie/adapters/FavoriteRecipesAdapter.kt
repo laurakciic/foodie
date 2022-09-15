@@ -21,7 +21,6 @@ class FavoriteRecipesAdapter(
     private var multiSelection = false
 
     private lateinit var mActionMode: ActionMode
-
     private lateinit var rootView: View
 
     private var selectedRecipes = arrayListOf<FavoritesEntity>()
@@ -96,9 +95,11 @@ class FavoriteRecipesAdapter(
         if (selectedRecipes.contains(currentRecipe)) {
             selectedRecipes.remove(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+            applyActionModeTitle()
         } else {
             selectedRecipes.add(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+            applyActionModeTitle()
         }
     }
 
@@ -108,6 +109,21 @@ class FavoriteRecipesAdapter(
         )
         holder.binding.favoriteRowCardView.strokeColor =
             ContextCompat.getColor(requireActivity, strokeColor)
+    }
+
+    private fun applyActionModeTitle() {
+        when (selectedRecipes.size) {
+            0 -> {                     // when there are no selected recipes
+                mActionMode.finish()   // close action mode (status & nav bars)
+                multiSelection = false
+            }
+            1 -> {                     // only 1 selected recipe
+                mActionMode.title = "${selectedRecipes.size} item selected"
+            }
+            else -> {
+                mActionMode.title = "${selectedRecipes.size} items selected"
+            }
+        }
     }
 
     private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder) {
@@ -120,7 +136,7 @@ class FavoriteRecipesAdapter(
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
-        mActionMode = actionMode!!
+        mActionMode = actionMode!!  // get actionMode from params and save it in global var mActionMode - needed to set title of Contextual action mode
         applyStatusBarColor(R.color.contextualStatusBarColor)
         return true
     }
