@@ -190,5 +190,13 @@ class FavoriteRecipesAdapter(
         ).setAction("Okay") {}
             .show()
     }
+
+    // checks if contextual action mode is initialized or is visible
+    // not private bc it's called from FavoriteRecipesFragment
+    fun clearContextualActionMode() {
+        if (this::mActionMode.isInitialized) {
+            mActionMode.finish()
+        }
+    }
 }
 

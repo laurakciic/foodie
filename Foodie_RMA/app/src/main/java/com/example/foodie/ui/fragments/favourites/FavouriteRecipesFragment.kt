@@ -44,8 +44,10 @@ class FavouriteRecipesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    // called whenever FavouriteRecipesFragment is finished/closed (when we navigate away from him)
     override fun onDestroyView() {
         super.onDestroyView()          // whenever we destroy fragment, we set binding to null
         _binding = null
+        mAdapter.clearContextualActionMode()
     }
 }
