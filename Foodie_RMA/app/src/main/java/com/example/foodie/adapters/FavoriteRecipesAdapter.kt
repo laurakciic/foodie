@@ -92,6 +92,15 @@ class FavoriteRecipesAdapter(
         }
     }
 
+    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder){
+        if (selectedRecipes.contains(currentRecipe)) {
+            // boja obruba oko recepta (stroke color)
+            changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+        } else {
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+        }
+    }
+
     // using selectedRecipes to add/remove recipes from the list
     private fun applySelection(holder: MyViewHolder, currentRecipe: FavoritesEntity) {
         if (selectedRecipes.contains(currentRecipe)) {
@@ -126,10 +135,6 @@ class FavoriteRecipesAdapter(
                 mActionMode.title = "${selectedRecipes.size} items selected"
             }
         }
-    }
-
-    private fun saveItemStateOnScroll(currentRecipe: FavoritesEntity, holder: MyViewHolder) {
-
     }
 
     override fun getItemCount(): Int {
