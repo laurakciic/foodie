@@ -101,11 +101,12 @@
                     app:srcCompat="@drawable/ic_heart"
                     app:tint="@color/red" />
 
+                <!-- converting Int value from result class to string -->
                 <TextView
                     android:id="@+id/heart_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    setNumberOfLikes="@{result.aggregateLikes}"
+                    android:text="@{String.valueOf(result.aggregateLikes)}"
                     android:textColor="@color/red"
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="@+id/description_textView"
@@ -126,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    setNumberOfMinutes="@{result.readyInMinutes}"
+                    android:text="@{String.valueOf(result.readyInMinutes)}"
                     android:textColor="@color/yellow"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/heart_textView"

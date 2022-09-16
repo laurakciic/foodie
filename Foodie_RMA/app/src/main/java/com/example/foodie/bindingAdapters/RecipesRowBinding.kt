@@ -13,7 +13,6 @@ import com.example.foodie.models.Result
 import com.example.foodie.ui.fragments.recipes.RecipesFragmentDirections
 import foodie.R
 import org.jsoup.Jsoup
-import java.lang.Exception
 
 // holds all the bindings (binding adaptors) for recipes_row_layout
 class RecipesRowBinding {
@@ -45,22 +44,6 @@ class RecipesRowBinding {
                 crossfade(600)  // when image is loading it will have a fade in animation 600 ms
                 error(R.drawable.ic_error_placeholder)
             }
-        }
-
-        // convert int value of number of likes to string
-        // params: view on which we're going to use this fun (TextView), value (integer) of likes
-        @BindingAdapter("setNumberOfLikes")    // name of the attribute used in recipes_row_layout
-        @JvmStatic                                    // telling compiler to make fun static so we can access it elsewhere in project
-        fun setNumberOfLikes(textView: TextView, likes: Int) {
-            textView.text = likes.toString()
-        }
-
-        // convert int value of number of minutes to string
-        // same principal as above
-        @BindingAdapter("setNumberOfMinutes")
-        @JvmStatic
-        fun setNumberOfMinutes(textView: TextView, minutes: Int){
-            textView.text = minutes.toString()
         }
 
         // fun to colour leaf image and Vegan text to green if the recipe is vegan
