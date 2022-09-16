@@ -174,3 +174,25 @@ Converting xml to data binding layout
 in xml:
 1. alt+enter on ConstraintLayout and select convert to data binding layout
 2. inside generated <data> element tag specify new variable with name and type
+
+
+Motion Layout
+
+Needs Constraint Layout to convert it to Motion Layout
+- in fragment_overview.xml go to design & select Constraint Layout, convert it to Motion Layout
+    - creates new dir xml in which is fragment_overview_scene.xml which will contain all animations
+
+2 constraint sets 
+- start (start position of the view)
+- end
+
+- select end endpoint, select main_imageView & sets its layout height to 1dp (in scene xml code will be generated)
+
+- create swipe handler (transition: start->end, drag direction: dragUp, anchor side: bottom, anchor id: imageView)
+- select arrow that represents transition
+
+- create key frames (attributes) on time & likes textView, time & likes imageView
+    - position: 100, attribute: alpha
+    - select that attribute and set alpha to 0
+
+
