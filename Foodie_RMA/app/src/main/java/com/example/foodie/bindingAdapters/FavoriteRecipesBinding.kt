@@ -25,9 +25,9 @@ class FavoriteRecipesBinding {
             when (view) {
                 is RecyclerView -> {
                     val dataCheck = favoritesEntity.isNullOrEmpty()     // checking if data is null/empty
-                    view.isInvisible = dataCheck                        // display hidden views (when no recipe is saved)
+                    view.isInvisible = dataCheck                        // display hidden views (when no recipe is saved), hide recycler view
                     if(!dataCheck){
-                        favoritesEntity?.let { mAdapter?.setData(it) }
+                        favoritesEntity?.let { mAdapter?.setData(it) }  // update recyclerView
                     }
                 }
                 else -> view.isVisible = favoritesEntity.isNullOrEmpty()
