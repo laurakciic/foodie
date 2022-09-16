@@ -73,7 +73,7 @@ class DetailsActivity : AppCompatActivity() {
         }
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
-            tab.text = titles[position]
+            tab.text = titles[position]     // set titles of fragments properly using titles array list
         }.attach()
 
     }
