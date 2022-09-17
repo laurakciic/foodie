@@ -12,6 +12,7 @@ class NetworkListener: ConnectivityManager.NetworkCallback() {
 
     private val isNetworkAvailable = MutableStateFlow(false)    // funs will change values of this MutableStateFlow depending on whether we get or lose conn
 
+    // takes context as param & returns MutableStateFlow
     fun checkNetworkAvailability(context: Context): MutableStateFlow<Boolean> {
 
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager // casting as ConnManager
