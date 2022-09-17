@@ -1,7 +1,7 @@
 package com.example.foodie.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //setContentView(R.layout.activity_main)
 
         navController = findNavController(R.id.navHostFragment)
         val appBarConfiguration = AppBarConfiguration(                  // to pass our destinations

@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import foodie.R
 import foodie.databinding.ActivityDetailsBinding
 
-
 @AndroidEntryPoint  // bc MainViewModel is used inside & it is using @Inject
 class DetailsActivity : AppCompatActivity() {
 
@@ -38,9 +37,6 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //setContentView(R.layout.activity_details)
-
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
