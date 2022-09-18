@@ -99,13 +99,13 @@ Types from a design POV
 
 <br/>
 
-## JSON to Kotlin plugin
+## [JSON to Kotlin plugin](https://www.geeksforgeeks.org/integrating-jsontokotlin-plugin-with-android-studio/)
 - generates Model classes for API
 - the plugin lets us copy and paste JSON API response and automatically generates necessary classes and fields (for API response)
 
 <br/>
 
-## DiffUtil
+## [DiffUtil](https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/DiffUtil)
 - instead of notifyDataSetChanged() in RecipesAdapter which is an overkill regarding performance because it's updating the list all over again without checking if new list of food recipes contains some recipes from the old list
 - will check and compare old list of food recipes with the new list and update only those recipes (views) which are new
 
