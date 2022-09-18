@@ -9,7 +9,7 @@ Foodie is a Kotlin mobile application for browsing various recipes working with 
 2. [Spoonacular API & Retrofit](#spoonacular-api-and-retrofit)
 3. [Database](#database)
 
-Other
+Other   
 [DetailsActivity](#details-activity)  
 [Chips](#chips)  
 [JSON to Kotlin plugin](#json-to-kotlin-plugin)   
