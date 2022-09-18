@@ -5,25 +5,26 @@ Foodie is a Kotlin mobile application for browsing various recipes working with 
 
 ## 📌 Navigation
 
-1. [Data Structure](#💡-data-structure)
-2. [Spoonacular API & Retrofit](#spoonacular-api-&-retrofit)
-3. [Database](#📜-database)
+1. [Data Structure](#data-structure)
+2. [Spoonacular API & Retrofit](#spoonacular-api-and-retrofit)
+3. [Database](#database)
 
-- [DetailsActivity](#details-activity-(overview,-ingredients,-instructions-fragment))  
-- [Chips](#chips)  
-- [JSON to Kotlin plugin](#json-to-kotlin-plugin)   
-- [DiffUtil](#diffutil)   
-- [KotlinFlow](#koltinflow)   
-- [StateFlow](#stateflow)
+Other
+[DetailsActivity](#details-activity)  
+[Chips](#chips)  
+[JSON to Kotlin plugin](#json-to-kotlin-plugin)   
+[DiffUtil](#diffutil)   
+[KotlinFlow](#kotlinflow)   
+[StateFlow](#stateflow)
 
-- [ShimmerRecyclerView](#shimmerrecyclerview)   
-- [Dagger](#dagger)  
-- [Hilt](#hilt)   
-- [DataBinding](#databinding)   
-- [Binding Adapters](#binding-adapters)
-- [Coil](#coil)  
-- [DataStore](#datastore)   
-- [Motion Layout](#motion-layout)
+[ShimmerRecyclerView](#shimmerrecyclerview)   
+[Dagger](#dagger)  
+[Hilt](#hilt)   
+[DataBinding](#data-binding)   
+[Binding Adapters](#binding-adapters)
+[Coil](#coil)  
+[DataStore](#datastore)   
+[Motion Layout](#motion-layout)
 
 ## 💡 Data Structure
 
@@ -33,7 +34,7 @@ RemoteDataSource: [Spoonacular API](https://spoonacular.com/food-api/pricing) wi
 LocalDataSource: [SQLite](#sqlite) with [ROOM](#room) on top of it which provides compile-time verification of SQL queries
 - LocalDataSource will cache API response and use it a first source of truth
 
-## Spoonacular API & Retrofit
+## Spoonacular API and Retrofit
 ### Retrofit
 - a typesafe HTTP client library
 - - RemoteDataSource uses Retrofit to fetch data from Spoonacular
@@ -76,8 +77,8 @@ Main advantages
 
 <br/>
 
-## Details activity (Overview, Ingredients, Instructions fragment)
-- holds 3 fragments (tabs)
+## Details activity
+- holds 3 fragments (tabs): Overview, Ingredients, Instructions fragment
 - not requesting data from API directly
 >only from RecipesFragment data is requested directly from API
 - we want to be able to send that result from API to DetailsActivity
@@ -102,13 +103,15 @@ Types from a design POV
 - generates Model classes for API
 - the plugin lets us copy and paste JSON API response and automatically generates necessary classes and fields (for API response)
 
+<br/>
+
 ## DiffUtil
 - instead of notifyDataSetChanged() in RecipesAdapter which is an overkill regarding performance because it's updating the list all over again without checking if new list of food recipes contains some recipes from the old list
 - will check and compare old list of food recipes with the new list and update only those recipes (views) which are new
 
 <br/>
 
-## Kotlin Flow
+## [KotlinFlow](https://developer.android.com/kotlin/flow)
 - used to send data from DAO interface to Repository and from Repository to ViewModel
 
 - stream of data that can be computed asynchronously
@@ -123,9 +126,7 @@ Types from a design POV
 - built on top of Coroutines and can provide multiple values
 - can stop for 2 reasons: coroutine that collects is cancelled or the producer is finished emitting items
 
-<br/>
-
-## StateFlow
+## [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow)
 - part of KotlinFlowAPI that enables Flow to optimally emit state updates and emit values to multiple consumers
 
 2 implementations
@@ -176,9 +177,13 @@ Types from a design POV
 ## [Binding Adapters](https://developer.android.com/topic/libraries/data-binding/binding-adapters)
 - used to create custom binding attribute for views inside layout XML file
 
+<br/>
+
 ## [Coil](https://coil-kt.github.io/coil/)
 - image loading lib for Android backed by Kotlin Coroutines
 - fast, lightweight, easy to use
+
+<br/>
 
 ## [DataStore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwg5uZBhATEiwAhhRLHi_47mH-jHnz66jNbx4ZWer4z-LgWLXf4B7o4U4PWhW7F7kPE0uswRoCYS4QAvD_BwE&gclsrc=aw.ds)
 - data storage solution replacing Shared Preferences (provides synchronous API, not main-thread safe)
@@ -199,8 +204,8 @@ Needs Constraint Layout to convert it to Motion Layout
 1. in fragment_overview.xml go to design & select Constraint Layout, convert it to Motion Layout
 >This creates new dir xml in which is fragment_overview_scene.xml which will contain all animations
 
-2 constraint sets
-- start (start position of the view) & end
+>2 constraint sets
+>- start (start position of the view) & end
 
 2. select end endpoint, select main_imageView & set its layout height to 1dp (in scene xml code will be generated)
 
