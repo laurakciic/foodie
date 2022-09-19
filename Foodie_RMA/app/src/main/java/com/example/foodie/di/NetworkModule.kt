@@ -12,6 +12,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+// tells Hilt how to provide Retrofit builder with RemoteDataSource
+
+// in order to provide FoodRecipesAPI we need to satisfy Retrofit dependency
+// in order to satisfy Retrofit dependency we need to provide okHttpClient and gsonConverterFactory
+// return types of those 2 fun are telling Hilt lib that we have specified how to create an instance
+//      of those dependencies
+
 @Module
 @InstallIn(SingletonComponent::class)
 // all bindings inside NetworkModule will be available in SingletonComponent
@@ -62,10 +69,4 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): FoodRecipesAPI {     // returns FoodRecipesAPI
         return retrofit.create(FoodRecipesAPI::class.java)          //   which we will inject in RemoteDataSource
     }
-
-    // in order to provide FoodRecipesAPI we need to satisfy Retrofit dependency
-    // in order to satisfy Retrofit dependency we need to provide okHttpClient and gsonConverterFactory
-    // return types of those 2 fun are telling Hilt lib that we have specified how to create an instance
-    //      of those dependencies
-
 }

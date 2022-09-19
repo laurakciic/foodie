@@ -22,6 +22,7 @@ import javax.inject.Inject
 
 private val Context.dataStore by preferencesDataStore(PREFERENCES_NAME)
 
+// data storage solution replacing Shared Preferences
 // main diff between DataStore & Shared Preferences is that DataStore is running on a background thread
 // injected ApplicationContext
 @ViewModelScoped  // Hilt lib annotation, because this class will be used inside RecipesViewModel

@@ -11,6 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import foodie.R
 import foodie.databinding.ActivityMainBinding
 
+// navigating from one to another fragment in bottom navigation view
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         navController = findNavController(R.id.navHostFragment)
-        val appBarConfiguration = AppBarConfiguration(                  // to pass our destinations
+        val appBarConfiguration = AppBarConfiguration(                  // pass our destinations
             setOf(
                 R.id.recipesFragment,
                 R.id.favouriteRecipesFragment,
@@ -32,11 +34,13 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
+        // bottomNavView to access view from activity_main.xml layout
         binding.bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
 
+    // called whenever user chooses to navigate Up within application's activity hierarchy from the action bar
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

@@ -21,6 +21,7 @@ import javax.inject.Inject
 
 // should extend ViewModel but since we are going to need an application reference in this view model
 //  then we're going to extend AndroidViewModel
+
 // Repository is injected here
 
 // created MutableLiveData obj which will hold responses from API

@@ -2,7 +2,7 @@ package com.example.foodie.util
 
 import androidx.recyclerview.widget.DiffUtil
 
-//
+// utility class
 class RecipesDiffUtil<T>(
     private val oldList: List<T>,
     private val newList: List<T>

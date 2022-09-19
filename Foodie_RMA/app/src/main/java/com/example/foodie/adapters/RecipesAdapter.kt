@@ -10,7 +10,7 @@ import com.example.foodie.util.RecipesDiffUtil
 import foodie.databinding.RecipesRowLayoutBinding   // automatically generated class
 
 // RecipesAdapter - needed in order to display API data in recycler view
-// also binded recipes adapter data with recipes_row_layout
+// also binds recipes adapter data with recipes_row_layout
 // extends RecyclerView.Adapter, passed MyViewHolder class
 
 // also created RecipesDiffUtil class for RecipesAdapter
@@ -65,7 +65,7 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
         val recipesDiffUtil = RecipesDiffUtil(recipes, newData.results)
         val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)    // calculate diff between those 2 lists, will update only views that are not the same
         recipes = newData.results
-        diffUtilResult.dispatchUpdatesTo(this)                   // this refers to this class which is an RecyclerView adapter
+        diffUtilResult.dispatchUpdatesTo(this)                  // this refers to this class which is an RecyclerView adapter
 
         //notifyDataSetChanged()     tell RecyclerView to update the values (views) when receiving new data - overkill
 

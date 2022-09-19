@@ -9,9 +9,21 @@ Foodie is a Kotlin mobile application for browsing various recipes working with 
 2. [Spoonacular API & Retrofit](#spoonacular-api-and-retrofit)
 3. [Database](#database)
 
-Other   
+UI   
+[Main Activity](#main-activity)
+[Recipes Fragment](#recipes-fragment)   
+[Favorite Recipes Fragment](#favorite-recipes-fragment)   
+[Recipes Fragment](#recipes-fragment)    
+
 [DetailsActivity](#details-activity)  
+[Overview Fragment](#overview-fragment)   
+[Ingredients Fragment](#ingredients-fragment)  
+[Instructions Fragment](#instructions-fragment)
+
+
 [Chips](#chips)  
+
+Tools
 [JSON to Kotlin plugin](#json-to-kotlin-plugin)   
 [DiffUtil](#diffutil)   
 [KotlinFlow](#kotlinflow)   
@@ -37,7 +49,7 @@ LocalDataSource: [SQLite](#sqlite) with [ROOM](#room) on top of it which provide
 ## Spoonacular API and Retrofit
 ### Retrofit
 - a typesafe HTTP client library
-- - RemoteDataSource uses Retrofit to fetch data from Spoonacular
+- RemoteDataSource uses Retrofit to fetch data from Spoonacular
 - provides communication between client & server
 - one simple interface, inside which we can create multiple functions
 - each of the functions can represent a different HTTP request
@@ -77,11 +89,43 @@ Main advantages
 
 <br/>
 
+## Main Activity
+- implemented via NavHostFragment & bottom navigation view
+
+## Recipes Fragment
+- depends on MainViewModel which depends on Repository which depends on 2 data sources (LocalDataSource & RemoteDataSource)
+- always using LocalDataSource to fetch the data
+- RemoteDataSource for new data used only in 2 cases: empty database / explicitly request new data from API
+
+Displays recipes chosen in bottom sheet which is activated by floating action btn.
+- only from here data is requested directly from API
+- recipes can also be searched 
+
+## Favorite Recipes Fragment
+Contains saved recipes.
+- can be selected one by one with Contextual action mode or can be deleted all by once 
+
+## Food Fact Fragment 
+Displays random food trivia fetched from API. 
+- can be shared
+
+<br/>
+
 ## Details activity
-- holds 3 fragments (tabs): Overview, Ingredients, Instructions fragment
+Shows when a certain recipe is clicked.
 - not requesting data from API directly
 >only from RecipesFragment data is requested directly from API
 - we want to be able to send that result from API to DetailsActivity
+- has star menu which on click saves recipe to favorite recipe fragment, or precisely to the local DB
+
+## Overview Fragment
+Displays overview of the selected recipe.
+
+## Ingredients Fragment
+Displays ingredients from selected recipe.
+
+## Instructions Fragment
+Displays web view showing website with instructions for the selected recipe.
 
 <br/>
 
