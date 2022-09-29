@@ -56,6 +56,7 @@ class FoodFactBinding {
                         }
                     }
                 }
+                else -> {}
             }
         }
 
