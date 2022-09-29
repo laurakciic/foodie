@@ -7,7 +7,7 @@ Foodie je Android aplikacija koja omogućuje pretraživanje različitih vrsta re
 Korisnici mogu filtrirati recepte prema vrsti obroka (predjelo, glavno jelo, desert, piće, salata, juha, umak, finger food itd.) 
 i prema vrsti prehrane (gluten free, vegan, vegetarian, whole30, primal...).   
 
-Aplikacija također omogućuje izravno pretraživanje recepata pomoću tražilice gdje korisnik upisom ključnoj riječi 
+Aplikacija također omogućuje izravno pretraživanje recepata pomoću tražilice gdje korisnik upisom ključne riječi 
 može pronaći odgovarajuće recepte.   
 
 Klikom na pojedini recept, korisnik može vidjeti pregled informacija o receptu, sastojke te instrukcije prikazane iz zasebne 
@@ -29,16 +29,16 @@ Aplikacija također podržava rad bez internetske veze uz određena ograničenja
 ## Activities & Fragments
 
 MainActivity predstavlja glavnu aktivnost koja služi kao ulazna točka za interakciju s korisnikom. Iz glavne aktivnosti može se 
-pokrenuti DetailsActivity aktivnost.   
-    - kada glavna aktivnost pokrene drugu aktivnost, tada glavna aktivnost prelazi u stanje pauze. Kada sekundarna aktivnost
+pokrenuti DetailsActivity, sekundarna aktivnost.
+> Kada glavna aktivnost pokrene drugu aktivnost, tada glavna aktivnost prelazi u stanje pauze. Kada sekundarna aktivnost
 završi, glavna aktivnost vraća se u prvi plan i nastavlja.   
 
-- MainActivity - prvi ekran koji se prikazuje kada korisnik pokrene aplikaciju. Sadrži tri fragmenta, od kojih je prvotno prikazan 
+- MainActivity - glavna aktivnost, prvi ekran koji se prikazuje kada korisnik pokrene aplikaciju. Sadrži tri fragmenta, od kojih je prvotno prikazan 
 Recipes fragment.   
 - DetailsActivity - sekundarna aktivnost koja se pokreće klikom na određeni recept. Također sadrži tri fragmenta od kojih je prvotno prikazan Overview s pregledom informacija o receptu   
 
 - RECIPES fragment - sadrži popis recepata, gumb za filtriranje te tražilicu   
-- FAVORITES fragment - sadrži popis spremljenih recepata koji se mogu uklanjati   
+- FAVOURITES fragment - sadrži popis spremljenih recepata koji se mogu uklanjati   
 - FOOD FACT fragment - random food fact s mogućnošću dijeljenja   
 
 - OVERVIEW fragment - prikazuje pregled osnovnih informacija o receptu   
@@ -48,7 +48,7 @@ Recipes fragment.
 # User Stories
 
 Svaki Epic user story podjeljen je u više user storyja, kojima su definirane
-funkcionalnosti aplikacije iz perspektive pojedine persone. Svaki User story
+funkcionalnosti aplikacije iz perspektive pojedine persone. Foodie zasad ima samo jednu vrstu korisnika. Svaki User story
 ima definiran acceptance criteria koji potvrđuje ispunjavanje tog User storija.
 Epic user story je ispunjen kada su ispunjeni svi acceptance kriteriji svih
 storija unutra tog Epica.
@@ -61,14 +61,12 @@ storija unutra tog Epica.
     - Korisnik vidi shimmer efekt za vrijeme učitavanja podataka
     - Korisnik vidi popis recepata nakon što se podatci učitaju 
     - Za svaki izlistani recept korisnik vidi njegovu sliku, naslov, opis te tri ikonice koje prikazuju broj sviđanja, vrijeme pravljenja te da li je recept veganski ili ne
-    - Klikom na gumb ikonice restorana, korisnik može filtrirati recepte prema vrsti obroka i vrsti prehrane
-    - Klikom na ikonicu tražilice, korisnik može pretraživati recepte upisom ključne riječi 
 
 - S1-2 Kao korisnik, kada se nalazim na Recipes fragmentu, imam mogućnost filtriranja recepata
 
     Acceptance criteria:
     - Korisnik vidi zeleni gumb sa znakom restorana
-    - Klikom na gumb restorana korisnik može pretraživati prema vrsti obroka i vrsti prehrane
+    - Klikom na gumb restorana korisnik može pretraživati recepte prema vrsti obroka i vrsti prehrane
 
 - S1-3 Kao korisnik, kada se nalazim na Recipes fragmentu, imam mogućnost pretraživanja proizvoda
     
@@ -121,6 +119,7 @@ storija unutra tog Epica.
     - Klikom na žutu ikonicu zvjezdice spremljenog recepta, korisnik uklanja spremljeni recept iz favorita
     - Dužim klikom na recept u Favourites fragmentu, korisnik na taj način može označiti jedan ili više recepata te ih obrisati klikom na ikonicu smeća
     - Klikom na tri točkice u navbaru, korisnik ima mogućnost uklanjanja svih spremljenih recepata
+    - Kada je recept uklonjen, prikaže se Toast poruka kao povratna informacija da je recept uklonjen
 
 ## Epic 4: Random Food Facts
 
@@ -159,21 +158,23 @@ storija unutra tog Epica.
     Acceptance criteria:
     - Korisnik vidi Toast poruku na donjem dijelu zaslona koja daje do znanja da je internet veza ponovno uspostavljena 
 
-## Epic 1: Dohvaćanje i prikaz podataka sa [Spoonacular API](https://spoonacular.com/food-api)  
-
-- S1-1 Kao korisnik, kada pokrenem aplikaciju, trebam vidjeti početni zaslon aplikacije  
-
-    Acceptance criteria:
-    - RecyclerView Placeholder layout za dizajn shimmer efekta
-    - RecipesFragment layout koji sadrži RecyclerView za prikaz recepata, placeholder shimmer efekta, button za filtriranje te prikaz u slučaju errora
-    - RecipesRow layout za dizajn "kartice" recepta (CardView sa slikom, tekstom i opisom)
-    - RecipesFragment klasa implementira navedenu funkcionalnost 
-    - MainActivity kao ulazna točka interakcije
-
-- S1-2 Kao korisnik, kada pristupim Recipes fragmentu, trebam vidjeti popis recepata   
     
-    Acceptance criteria:
+ ## UML dijagrami
+
+ ### UML Class dijagram
+
+https://app.creately.com/d/ZY5sn41tlDg/edit
+
+<img src="https://embed.creately.com/ZY5sn41tlDg?token=8ITXEIi2Ft6bcyjA&type=svg">
+
+ ### baza
+
+https://drawsql.app/teams/laura-8/diagrams/recipes
+
+<iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/teams/laura-8/diagrams/recipes/embed"></iframe>
+
+- Recepti
     - model klase (generirane pomoću JSON to Kotlin plugina)
     - FoodRecipesAPI interface za GET requestove (Retrofit)
     - RemoteDataSource klasa koja requesta podatke od API - u nju je ubačen FoodRecipesAPI
-    - 
+    - ...
