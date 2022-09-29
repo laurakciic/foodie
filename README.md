@@ -165,14 +165,28 @@ storija unutra tog Epica.
 
 https://app.creately.com/d/ZY5sn41tlDg/edit
 
-<img src="https://embed.creately.com/ZY5sn41tlDg?token=8ITXEIi2Ft6bcyjA&type=svg">
+![Class Diagram]()
 
  ### baza
 
 https://drawsql.app/teams/laura-8/diagrams/recipes
+  
+   
+    
+    
+    
+    
+    
 
-<img src="https://drawsql.app/teams/laura-8/diagrams/recipes/embed">
 
+  
+ 
+  
+ 
+ 
+ 
+ 
+   
 - Recepti
     - model klase (generirane pomoću JSON to Kotlin plugina)
     - FoodRecipesAPI interface za GET requestove (Retrofit)
