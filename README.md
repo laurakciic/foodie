@@ -161,31 +161,15 @@ storija unutra tog Epica.
     
  ## UML dijagrami
 
- ### UML Class dijagram
+ ### Class dijagram
 
 https://app.creately.com/d/ZY5sn41tlDg/edit
 
 ![Class Diagram](https://github.com/laurakciic/foodie/blob/master/class-diagram.png)
 
- ### baza
+ ### Baza
 
 https://drawsql.app/teams/laura-8/diagrams/recipes
-  
-   
-    
-    
-    
-    
-    
-
-
-  
- 
-  
- 
- 
- 
- 
    
 - Recepti
     - model klase (generirane pomoću JSON to Kotlin plugina)
