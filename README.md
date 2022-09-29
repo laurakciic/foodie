@@ -165,7 +165,7 @@ storija unutra tog Epica.
 
 https://app.creately.com/d/ZY5sn41tlDg/edit
 
-![Class Diagram]()
+![Class Diagram](https://github.com/laurakciic/foodie/blob/master/class-diagram.jpg)
 
  ### baza
 
